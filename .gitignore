@@ -1,0 +1,12 @@
+# IDE / OS noise
+.DS_Store
+.vscode/
+.idea/
+node_modules/
+*.log
+
+# build artifacts (none today, but in case)
+dist/
+build/
+.next/
+out/

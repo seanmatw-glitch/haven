@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Haven — App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #F2E4D0; font-family: Inter, sans-serif; color: #3a2420; }
+  * { box-sizing: border-box; }
+  em { font-style: italic; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="app/kit.jsx"></script>
+<script type="text/babel" src="app/screens-onboarding.jsx"></script>
+<script type="text/babel" src="app/screens-onboarding-deep.jsx"></script>
+<script type="text/babel" src="app/screens-core.jsx"></script>
+<script type="text/babel" src="app/screens-sage-chat.jsx"></script>
+<script type="text/babel" src="app/screens-therapist.jsx"></script>
+<script type="text/babel" src="app/screens-date-brief.jsx"></script>
+<script type="text/babel" src="app/screens-post-match.jsx"></script>
+<script type="text/babel" src="app/screens-landing.jsx"></script>
+<script type="text/babel" src="app/screens-debrief.jsx"></script>
+<script type="text/babel" src="app/screens-campaign.jsx"></script>
+<script type="text/babel" src="app/screens-motion.jsx"></script>
+
+<script type="text/babel">
+const APP_TWEAKS = /*EDITMODE-BEGIN*/{
+  "tone": "coral",
+  "voice": "literary"
+}/*EDITMODE-END*/;
+
+function HavenApp() {
+  const [tweaks, setTweaks] = useTweaks(APP_TWEAKS);
+  return (
+    <>
+      <DesignCanvas>
+        <DCSection id="onboarding" title="1 · Onboarding" subtitle="Three days with Sage. Voice, felt responses, free text, sliders — then light common-interest, then live therapy verification.">
+          <DCArtboard id="welcome" label="01 · Welcome" width={440} height={860}>
+            <Screen_Welcome />
+          </DCArtboard>
+          <DCArtboard id="voiceintro" label="02 · Sage's voice note" width={440} height={860}>
+            <Screen_VoiceIntro />
+          </DCArtboard>
+          <DCArtboard id="callyou" label="03 · What should I call you" width={440} height={860}>
+            <Screen_WhatToCallYou />
+          </DCArtboard>
+          <DCArtboard id="intake" label="04 · SMS intake (Day 2)" width={440} height={860}>
+            <Screen_Intake />
+          </DCArtboard>
+          <DCArtboard id="attachment" label="05 · Attachment scenario" width={440} height={860}>
+            <Screen_AttachmentScenario />
+          </DCArtboard>
+          <DCArtboard id="eq" label="06 · Sitting with another" width={440} height={860}>
+            <Screen_OnboardingEQ />
+          </DCArtboard>
+          <DCArtboard id="loneliness" label="07 · Loneliness dial" width={440} height={860}>
+            <Screen_LonelinessDial />
+          </DCArtboard>
+          <DCArtboard id="mostyourself" label="08 · Most yourself (free text)" width={440} height={860}>
+            <Screen_MostYourself />
+          </DCArtboard>
+          <DCArtboard id="uncertain" label="09 · Sage asks again" width={440} height={860}>
+            <Screen_SageUncertain />
+          </DCArtboard>
+          <DCArtboard id="repair" label="10 · Rupture & repair" width={440} height={860}>
+            <Screen_OnboardingRepair />
+          </DCArtboard>
+          <DCArtboard id="receive" label="11 · How love lands" width={440} height={860}>
+            <Screen_ReceiveLove />
+          </DCArtboard>
+          <DCArtboard id="growth" label="12 · Where in your work" width={440} height={860}>
+            <Screen_OnboardingGrowth />
+          </DCArtboard>
+          <DCArtboard id="commoninterests" label="13 · Common interests · zoom out" width={440} height={860}>
+            <Screen_CommonInterests />
+          </DCArtboard>
+          <DCArtboard id="rest" label="14 · Rest overnight" width={440} height={860}>
+            <Screen_RestOvernight />
+          </DCArtboard>
+          <DCArtboard id="synthesis" label="15 · Sage synthesizes" width={440} height={860}>
+            <Screen_OnboardingSynthesis />
+          </DCArtboard>
+          <DCArtboard id="therapyauth" label="16 · Authenticate therapy (live)" width={440} height={860}>
+            <Screen_TherapyAuth />
+          </DCArtboard>
+          <DCArtboard id="therapypending" label="17 · Waiting on your therapist" width={440} height={860}>
+            <Screen_TherapyAuthPending />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="home" title="2 · The daily experience" subtitle="Home is Sage's morning note + the one person she wants you to meet. No feed.">
+          <DCArtboard id="home" label="Home · a morning with Sage" width={440} height={860}>
+            <Screen_Home />
+          </DCArtboard>
+          <DCArtboard id="checkin" label="Sunday check-in" width={440} height={860}>
+            <Screen_CheckIn />
+          </DCArtboard>
+          <DCArtboard id="profile" label="You · Sage's portrait" width={440} height={860}>
+            <Screen_Profile />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="match" title="3 · An introduction" subtitle="The match reveal, the narrative on why, and Sage-drafted opener after a mutual yes.">
+          <DCArtboard id="match" label="Match · why her, for you" width={440} height={860}>
+            <Screen_Match />
+          </DCArtboard>
+          <DCArtboard id="intro" label="Mutual yes · draft an opener" width={440} height={860}>
+            <Screen_Intro />
+          </DCArtboard>
+          <DCArtboard id="datebrief" label="Date brief · morning of" width={440} height={860}>
+            <Screen_DateBrief />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="sage" title="4 · Sage, ongoing" subtitle="The chat is a relationship, not a support ticket. She notices things across weeks.">
+          <DCArtboard id="sagechat" label="Sage chat · she noticed" width={440} height={860}>
+            <Screen_SageChat />
+          </DCArtboard>
+          <DCArtboard id="afterdate" label="Morning after · debrief" width={440} height={860}>
+            <Screen_AfterDate />
+          </DCArtboard>
+          <DCArtboard id="pattern" label="Week 6 · a pattern, gently" width={440} height={860}>
+            <Screen_PatternNotice />
+          </DCArtboard>
+          <DCArtboard id="nexttext" label="The follow-up text" width={440} height={860}>
+            <Screen_NextText />
+          </DCArtboard>
+          <DCArtboard id="mirror" label="Maya's mirror · symmetric intro" width={440} height={860}>
+            <Screen_MayaMirror />
+          </DCArtboard>
+          <DCArtboard id="pause" label="Pause · the house is still here" width={440} height={860}>
+            <Screen_Pause />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="therapy" title="5 · Therapists — partner & directory" subtitle="Partner-side for referring clinicians, and a warm member-facing directory for people not yet in therapy.">
+          <DCArtboard id="tinvite" label="Therapist · invite a client" width={440} height={860}>
+            <Screen_TherapistInvite />
+          </DCArtboard>
+          <DCArtboard id="tdir" label="Member · therapist directory" width={440} height={860}>
+            <Screen_TherapistDirectory />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="marketing" title="6 · Marketing — the landing page" subtitle="The first impression of Haven on the web. One long page, one story.">
+          <DCArtboard id="landing" label="haven.com · landing" width={1440} height={2400}>
+            <Screen_Landing />
+          </DCArtboard>
+          <DCArtboard id="founders" label="haven.com/why · founders letter" width={1440} height={1400}>
+            <Screen_FoundersLetter />
+          </DCArtboard>
+          <DCArtboard id="presskit" label="haven.com/press · press kit" width={1440} height={1600}>
+            <Screen_PressKit />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="campaign" title="7 · Brand campaign" subtitle="OOH wild postings and the launch Instagram grid — the brand in the wild.">
+          <DCArtboard id="ooh" label="OOH series · three posters" width={1600} height={1460}>
+            <Screen_OOH_Series />
+          </DCArtboard>
+          <DCArtboard id="ig" label="Instagram launch · 9-grid" width={1080} height={1230}>
+            <Screen_InstagramGrid />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="motion" title="8 · Motion — match reveal" subtitle="The signature transition — Sage thinks, the halo blooms, she arrives, the why settles. Live animation + spec storyboard.">
+          <DCArtboard id="revealmotion" label="Match reveal · live motion (loops)" width={440} height={860}>
+            <Screen_MatchRevealMotion />
+          </DCArtboard>
+          <DCArtboard id="revealstory" label="Match reveal · 4-beat storyboard" width={1600} height={1100}>
+            <Screen_MatchRevealStoryboard />
+          </DCArtboard>
+        </DCSection>
+      </DesignCanvas>
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection title="Bloom tone" subtitle="Shifts the atmosphere across all screens.">
+          <TweakRadio
+            value={tweaks.tone}
+            onChange={v => setTweaks({ tone: v })}
+            options={[
+              { value: 'coral', label: 'Coral (default)' },
+              { value: 'dusk', label: 'Dusk · lilac' },
+              { value: 'honey', label: 'Honey' },
+            ]}
+          />
+        </TweakSection>
+        <TweakSection title="Sage's voice" subtitle="How she sounds in copy. Not wired in yet — spec only.">
+          <TweakRadio
+            value={tweaks.voice}
+            onChange={v => setTweaks({ voice: v })}
+            options={[
+              { value: 'literary', label: 'Warm, observant, literary (default)' },
+              { value: 'grounded', label: 'Direct, grounded, less poetic' },
+              { value: 'playful', label: 'Dry humor, a little playful' },
+              { value: 'reverent', label: 'Quiet, says less' },
+            ]}
+          />
+        </TweakSection>
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<HavenApp />);
+</script>
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Haven — Brand Film</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap">
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="animations.jsx"></script>
+
+<style>
+  body { margin: 0; background: #0a0605; font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+  .label { position: fixed; top: 22px; left: 22px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,243,232,0.5); z-index: 100; }
+  .label .it { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 22px; text-transform: none; letter-spacing: 0; color: #FBF3E8; display: block; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div class="label">Brand film · 30s anthem<span class="it">Haven</span></div>
+
+<div id="root"></div>
+
+<script type="text/babel">
+const HAVEN = {
+  cream: '#FBF3E8', oat: '#F2E4D0', cocoa: '#3a2420',
+  coral: '#F4A088', coralDeep: '#D87560', peach: '#F6C8A8',
+  blush: '#EEA99B', honey: '#E8C38A', lilac: '#D4B8D8',
+  textDim: '#6a4f3c', textMuted: '#8a6a58',
+};
+
+// Soft bloom field — matches the brand system
+function Bloom({ tone = 'coral', intensity = 1, blur = 60, opacity = 0.95 }) {
+  const palettes = {
+    coral:  { a: '#F4A088', b: '#F6C8A8', c: '#EEA99B' },
+    dusk:   { a: '#E89890', b: '#D4B8D8', c: '#C9A5B8' },
+    honey:  { a: '#E8C38A', b: '#F4A088', c: '#EEB88A' },
+    morning:{ a: '#FBE0C8', b: '#F6C8A8', c: '#F2D8BC' },
+  };
+  const p = palettes[tone] || palettes.coral;
+  return (
+    <div style={{
+      position: 'absolute', inset: '-25%',
+      background: `
+        radial-gradient(ellipse 55% 50% at 20% 25%, ${p.a} 0%, transparent 60%),
+        radial-gradient(ellipse 60% 55% at 85% 30%, ${p.b} 0%, transparent 60%),
+        radial-gradient(ellipse 65% 60% at 70% 85%, ${p.c} 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 15% 80%, ${p.a} 0%, transparent 55%)`,
+      filter: `blur(${blur}px)`, opacity: opacity * intensity, pointerEvents: 'none',
+    }} />
+  );
+}
+
+// — Scene 1 (0–4s): cream void, halo blooms in
+function Scene_Awaken() {
+  return (
+    <Sprite start={0} end={4.2}>
+      {({ localTime, progress }) => {
+        const fade = Easing.easeOutCubic(clamp(localTime / 1.2, 0, 1));
+        const exit = clamp((localTime - 3.4) / 0.8, 0, 1);
+        const haloScale = 0.3 + 0.7 * Easing.easeOutCubic(clamp(localTime / 2.6, 0, 1));
+        const pulse = 1 + Math.sin(localTime * 1.5) * 0.04;
+        return (
+          <div style={{ position: 'absolute', inset: 0, background: HAVEN.cream, opacity: 1 - exit * 0.25 }}>
+            <Bloom tone="morning" intensity={fade * 0.5} blur={80} opacity={0.6} />
+            <div style={{
+              position: 'absolute', top: '50%', left: '50%',
+              transform: `translate(-50%, -50%) scale(${haloScale * pulse})`,
+              width: 360, height: 360, borderRadius: '50%',
+              background: 'radial-gradient(circle at 42% 38%, #FBE0C8 0%, #F4A088 52%, #D87560 100%)',
+              boxShadow: 'inset -8px -14px 30px rgba(120,50,40,0.22), inset 8px 8px 22px rgba(255,240,220,0.5), 0 0 100px rgba(244,160,136,0.5)',
+              opacity: fade * (1 - exit),
+              filter: `blur(${exit * 20}px)`,
+            }} />
+            <div style={{
+              position: 'absolute', bottom: 100, left: 0, right: 0, textAlign: 'center',
+              opacity: clamp((localTime - 1.8) / 1.2, 0, 1) * (1 - exit),
+              fontFamily: '"DM Mono", monospace', fontSize: 16, letterSpacing: '0.28em',
+              textTransform: 'uppercase', color: HAVEN.textMuted,
+            }}>
+              Meet Sage
+            </div>
+          </div>
+        );
+      }}
+    </Sprite>
+  );
+}
+
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+// — Scene 2 (4–10s): the question
+function Scene_Question() {
+  return (
+    <Sprite start={4} end={10.5}>
+      {({ localTime }) => {
+        const enter = Easing.easeOutCubic(clamp(localTime / 1.0, 0, 1));
+        const exit = clamp((localTime - 5.5) / 1.0, 0, 1);
+        const op = enter * (1 - exit);
+        const lines = [
+          { t: 'When someone you love', delay: 0.2 },
+          { t: 'is in pain,', delay: 0.7 },
+          { t: { pre: "what's your ", em: 'first move?' }, delay: 1.4 },
+        ];
+        return (
+          <div style={{ position: 'absolute', inset: 0, opacity: op }}>
+            <Bloom tone="dusk" intensity={1} />
+            <div style={{
+              position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+              fontFamily: 'Inter', fontWeight: 200, fontSize: 110, lineHeight: 1.05,
+              letterSpacing: '-0.035em', color: HAVEN.cocoa, textAlign: 'center',
+            }}>
+              {lines.map((l, i) => {
+                const lineFade = Easing.easeOutCubic(clamp((localTime - l.delay) / 0.7, 0, 1));
+                const ty = (1 - lineFade) * 18;
+                return (
+                  <div key={i} style={{ opacity: lineFade, transform: `translateY(${ty}px)` }}>
+                    {typeof l.t === 'string' ? l.t : (
+                      <>{l.t.pre}<em style={{ fontFamily: '"Instrument Serif", serif', fontStyle: 'italic', fontWeight: 400 }}>{l.t.em}</em></>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      }}
+    </Sprite>
+  );
+}
+
+// — Scene 3 (10–16s): the answer rises
+function Scene_Answer() {
+  return (
+    <Sprite start={10} end={16.5}>
+      {({ localTime }) => {
+        const enter = Easing.easeOutCubic(clamp(localTime / 1.0, 0, 1));
+        const exit = clamp((localTime - 5.5) / 1.0, 0, 1);
+        const op = enter * (1 - exit);
+        return (
+          <div style={{ position: 'absolute', inset: 0, opacity: op, background: HAVEN.cream }}>
+            <Bloom tone="honey" intensity={0.9} />
+            <div style={{
+              position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+              fontFamily: '"Instrument Serif", serif', fontStyle: 'italic', fontSize: 124, lineHeight: 1.08,
+              color: HAVEN.cocoa, textAlign: 'center', maxWidth: 1500,
+            }}>
+              <div style={{ opacity: Easing.easeOutCubic(clamp((localTime - 0.4) / 1.2, 0, 1)) }}>Sit with them.</div>
+              <div style={{
+                opacity: Easing.easeOutCubic(clamp((localTime - 1.6) / 1.4, 0, 1)),
+                fontFamily: 'Inter', fontWeight: 200, fontStyle: 'normal', fontSize: 96,
+                color: HAVEN.coralDeep, marginTop: 30,
+              }}>
+                The silence is part.
+              </div>
+            </div>
+          </div>
+        );
+      }}
+    </Sprite>
+  );
+}
+
+// — Scene 4 (16–22s): match reveal — halo blooms into a portrait
+function Scene_Match() {
+  return (
+    <Sprite start={16} end={22.5}>
+      {({ localTime }) => {
+        const enter = Easing.easeOutCubic(clamp(localTime / 0.8, 0, 1));
+        const exit = clamp((localTime - 5.7) / 0.8, 0, 1);
+        const op = enter * (1 - exit);
+        const haloEnd = clamp((localTime - 0.6) / 1.4, 0, 1);
+        const photoIn = Easing.easeOutCubic(clamp((localTime - 1.6) / 1.6, 0, 1));
+        const nameIn = Easing.easeOutCubic(clamp((localTime - 3.2) / 1.0, 0, 1));
+        const lineIn = Easing.easeOutCubic(clamp((localTime - 4.0) / 1.2, 0, 1));
+        return (
+          <div style={{ position: 'absolute', inset: 0, opacity: op, background: HAVEN.cream }}>
+            <Bloom tone="coral" intensity={0.95} />
+            {/* halo that recedes as photo enters */}
+            <div style={{
+              position: 'absolute', top: '38%', left: '50%',
+              transform: `translate(-50%, -50%) scale(${0.5 + haloEnd * 1.2})`,
+              width: 300, height: 300, borderRadius: '50%',
+              background: 'radial-gradient(circle at 42% 38%, #FBE0C8 0%, #F4A088 52%, #D87560 100%)',
+              filter: `blur(${haloEnd * 14}px)`,
+              opacity: Math.max(0, 1 - photoIn * 1.3),
+            }} />
+            {/* photo */}
+            <div style={{
+              position: 'absolute', top: '38%', left: '50%',
+              transform: `translate(-50%, -50%) scale(${0.94 + photoIn * 0.06})`,
+              width: 360, height: 460, borderRadius: 24, overflow: 'hidden',
+              backgroundImage: 'url(app/photos/maya.jpg)', backgroundSize: 'cover', backgroundPosition: 'center',
+              boxShadow: `0 30px 80px rgba(180,90,70,${photoIn * 0.4})`,
+              opacity: photoIn,
+            }} />
+            {/* name */}
+            <div style={{
+              position: 'absolute', top: '72%', left: 0, right: 0, textAlign: 'center',
+              opacity: nameIn, transform: `translateY(${(1 - nameIn) * 12}px)`,
+              fontFamily: '"Instrument Serif", serif', fontStyle: 'italic', fontSize: 88, color: HAVEN.cocoa,
+            }}>Maya</div>
+            {/* line */}
+            <div style={{
+              position: 'absolute', bottom: 110, left: 0, right: 0, textAlign: 'center',
+              opacity: lineIn, transform: `translateY(${(1 - lineIn) * 12}px)`,
+              fontFamily: '"Instrument Serif", serif', fontStyle: 'italic', fontSize: 30, color: HAVEN.textDim,
+              maxWidth: 900, margin: '0 auto', padding: '0 60px',
+            }}>
+              You both said "patient" when she asked what you were working toward.
+            </div>
+          </div>
+        );
+      }}
+    </Sprite>
+  );
+}
+
+// — Scene 5 (22–27s): the promise
+function Scene_Promise() {
+  return (
+    <Sprite start={22} end={27.5}>
+      {({ localTime }) => {
+        const enter = Easing.easeOutCubic(clamp(localTime / 1.0, 0, 1));
+        const exit = clamp((localTime - 4.5) / 1.0, 0, 1);
+        const op = enter * (1 - exit);
+        return (
+          <div style={{ position: 'absolute', inset: 0, opacity: op, background: '#1a0d0a' }}>
+            <div style={{ position: 'absolute', inset: '-25%', filter: 'blur(80px)', opacity: 0.85,
+              background: `
+                radial-gradient(ellipse 55% 50% at 20% 25%, #5a2820 0%, transparent 60%),
+                radial-gradient(ellipse 60% 55% at 85% 70%, #6a3020 0%, transparent 60%)`,
+            }} />
+            <div style={{
+              position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+              fontFamily: 'Inter', fontWeight: 200, fontSize: 124, lineHeight: 1.08,
+              letterSpacing: '-0.035em', color: HAVEN.cream, textAlign: 'center', maxWidth: 1700,
+            }}>
+              <div style={{ opacity: Easing.easeOutCubic(clamp((localTime - 0.2) / 1.0, 0, 1)) }}>Meet someone</div>
+              <div style={{ opacity: Easing.easeOutCubic(clamp((localTime - 1.0) / 1.2, 0, 1)) }}>
+                who has done <em style={{ fontFamily: '"Instrument Serif", serif', fontStyle: 'italic', fontWeight: 400, color: HAVEN.coral }}>their</em>
+              </div>
+              <div style={{ opacity: Easing.easeOutCubic(clamp((localTime - 1.8) / 1.2, 0, 1)) }}>own work, too.</div>
+            </div>
+          </div>
+        );
+      }}
+    </Sprite>
+  );
+}
+
+// — Scene 6 (27–30s): the wordmark
+function Scene_Logo() {
+  return (
+    <Sprite start={27} end={30}>
+      {({ localTime }) => {
+        const enter = Easing.easeOutCubic(clamp(localTime / 0.9, 0, 1));
+        const haloPulse = 1 + Math.sin(localTime * 1.8) * 0.04;
+        return (
+          <div style={{ position: 'absolute', inset: 0, background: HAVEN.cream, opacity: enter }}>
+            <Bloom tone="morning" intensity={0.7} blur={80} />
+            <div style={{
+              position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 30,
+            }}>
+              <div style={{
+                width: 90, height: 90, borderRadius: '50%',
+                background: 'radial-gradient(circle at 42% 38%, #FBE0C8 0%, #F4A088 52%, #D87560 100%)',
+                boxShadow: 'inset -3px -5px 10px rgba(120,50,40,0.2), inset 3px 3px 8px rgba(255,240,220,0.45), 0 0 40px rgba(244,160,136,0.4)',
+                transform: `scale(${haloPulse})`,
+              }} />
+              <div style={{
+                fontFamily: '"Instrument Serif", serif', fontStyle: 'italic', fontSize: 160,
+                color: HAVEN.cocoa, letterSpacing: '-0.02em', lineHeight: 1,
+              }}>Haven</div>
+              <div style={{
+                fontFamily: '"DM Mono", monospace', fontSize: 18, letterSpacing: '0.3em',
+                textTransform: 'uppercase', color: HAVEN.textMuted, marginTop: 16,
+                opacity: Easing.easeOutCubic(clamp((localTime - 1.0) / 1.2, 0, 1)),
+              }}>haven.love</div>
+            </div>
+          </div>
+        );
+      }}
+    </Sprite>
+  );
+}
+
+function Film() {
+  return (
+    <Stage width={1920} height={1080} duration={30} background="#FBF3E8" loop={true}>
+      <Scene_Awaken />
+      <Scene_Question />
+      <Scene_Answer />
+      <Scene_Match />
+      <Scene_Promise />
+      <Scene_Logo />
+    </Stage>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Film />);
+</script>
+
+</body>
+</html>

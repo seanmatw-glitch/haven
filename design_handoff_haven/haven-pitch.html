@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Haven — Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap">
+<script src="deck-stage.js"></script>
+<style>
+  body { margin: 0; font-family: 'Inter', sans-serif; background: #0a0605; color: #3a2420; }
+  :root {
+    --cream: #FBF3E8; --oat: #F2E4D0; --cocoa: #3a2420; --coral: #F4A088;
+    --coralDeep: #D87560; --peach: #F6C8A8; --blush: #EEA99B; --honey: #E8C38A;
+    --lilac: #D4B8D8; --textDim: #6a4f3c; --textMuted: #8a6a58; --divider: #E8D8C0;
+  }
+  deck-stage section {
+    width: 1920px; height: 1080px; position: relative; overflow: hidden;
+    background: var(--cream); color: var(--cocoa);
+    display: flex; flex-direction: column;
+  }
+  .bloom { position: absolute; inset: -25%; filter: blur(60px); opacity: 0.95; pointer-events: none; }
+  .bloom.coral { background:
+    radial-gradient(ellipse 55% 50% at 20% 25%, #F4A088 0%, transparent 60%),
+    radial-gradient(ellipse 60% 55% at 85% 30%, #F6C8A8 0%, transparent 60%),
+    radial-gradient(ellipse 65% 60% at 70% 85%, #EEA99B 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 15% 80%, #F4A088 0%, transparent 55%); }
+  .bloom.dusk { background:
+    radial-gradient(ellipse 55% 50% at 20% 25%, #E89890 0%, transparent 60%),
+    radial-gradient(ellipse 60% 55% at 85% 30%, #D4B8D8 0%, transparent 60%),
+    radial-gradient(ellipse 65% 60% at 70% 85%, #C9A5B8 0%, transparent 60%); }
+  .bloom.honey { background:
+    radial-gradient(ellipse 55% 50% at 20% 25%, #E8C38A 0%, transparent 60%),
+    radial-gradient(ellipse 60% 55% at 85% 30%, #F4A088 0%, transparent 60%),
+    radial-gradient(ellipse 65% 60% at 70% 85%, #EEB88A 0%, transparent 60%); }
+  .bloom.cocoa { background:
+    radial-gradient(ellipse 55% 50% at 20% 25%, #5a2820 0%, transparent 60%),
+    radial-gradient(ellipse 60% 55% at 85% 30%, #3a1410 0%, transparent 60%),
+    radial-gradient(ellipse 65% 60% at 70% 85%, #6a3020 0%, transparent 60%);
+    opacity: 1; }
+  .content { position: relative; z-index: 2; padding: 110px 130px; flex: 1; display: flex; flex-direction: column; }
+
+  .mono { font-family: 'DM Mono', monospace; font-size: 24px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--textMuted); }
+  .it { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  .h1 { font-family: 'Inter', sans-serif; font-weight: 200; letter-spacing: -0.04em; line-height: 0.98; color: var(--cocoa); }
+  .body { font-family: 'Inter', sans-serif; font-weight: 300; color: var(--textDim); line-height: 1.55; }
+  .nav { position: absolute; top: 50px; left: 130px; right: 130px; z-index: 3; display: flex; justify-content: space-between; align-items: center; }
+  .pn { font-family: 'DM Mono', monospace; font-size: 24px; letter-spacing: 0.14em; color: var(--textMuted); }
+  .wm { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; color: var(--cocoa); }
+  .footer { position: absolute; bottom: 50px; left: 130px; right: 130px; z-index: 3; display: flex; justify-content: space-between; align-items: center; }
+
+  /* halo */
+  .halo { width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle at 42% 38%, #FBE0C8 0%, #F4A088 52%, #D87560 100%);
+    box-shadow: inset -6px -10px 22px rgba(120,50,40,0.2), inset 6px 6px 16px rgba(255,240,220,0.45), 0 0 80px rgba(244,160,136,0.5);
+    animation: pulse 4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+
+  /* dark slide variant */
+  .dark { background: #1a0d0a; color: var(--cream); }
+  .dark .h1 { color: var(--cream); }
+  .dark .body { color: rgba(251,243,232,0.7); }
+  .dark .mono { color: rgba(251,243,232,0.5); }
+  .dark .wm { color: var(--cream); }
+  .dark .pn { color: rgba(251,243,232,0.5); }
+</style>
+</head>
+<body>
+
+<script type="application/json" id="speaker-notes">[
+  "Welcome to Haven. The pitch is fifteen minutes. The story is simple: dating apps are making people in therapy worse at love, and we built the alternative.",
+  "First — what's broken. The market has consolidated into three apps that all reward the same thing: performance.",
+  "Therapy is up. Loneliness is up. App fatigue is up. The people doing the most internal work have nowhere good to date.",
+  "Haven is a matchmaker for people in therapy. Sage, our concierge, gets to know you over three days. Then she introduces one person at a time.",
+  "Verification is the moat. We verify therapy through OAuth with the major platforms — or one sentence to your therapist. Receipts can be faked. People cannot.",
+  "Three days with Sage. Voice notes, felt responses, the slow questions. By day three she knows how you move around another person.",
+  "One person at a time. No feed, no swipe. Sage tells you why her, for you, in one line. You say yes, or not yet.",
+  "We built a brand that signals difference in three seconds. Warm cream and coral. Editorial italic for the tender turns. Confident and quiet.",
+  "Two tiers. Core at $29 a month. Atelier at $99 — paired with a real human matchmaker. The unit economics work because the gate keeps the pond small.",
+  "We have early traction in three cities. Two thousand four hundred therapy-verified members. Eighty-eight percent monthly retention. NPS of seventy-one.",
+  "We're raising six point two million for the next eighteen months. Hire eight people. Open three more cities. Build the partner side for therapists.",
+  "Thank you. Questions."
+]</script>
+
+<deck-stage>
+
+<!-- 01 — title -->
+<section data-screen-label="01 Title">
+  <div class="bloom coral"></div>
+  <div class="nav"><div class="wm">Haven</div><div class="pn">01 / 12</div></div>
+  <div class="content" style="justify-content: center;">
+    <div class="mono" style="margin-bottom: 40px;">A home for people doing the work</div>
+    <div class="h1" style="font-size: 200px; margin-bottom: 50px;">
+      Meet someone<br>who has done <span class="it">their</span><br>own work, too.
+    </div>
+    <div style="display: flex; gap: 80px; align-items: baseline; margin-top: 40px;">
+      <div class="body" style="font-size: 28px; max-width: 700px;">
+        Haven — investor pitch · Series Seed · April 2026
+      </div>
+      <div class="mono" style="font-size: 24px;">Confidential</div>
+    </div>
+  </div>
+  <div class="footer"><div class="pn">haven.love</div><div class="pn">Leila Osman · Jun Park</div></div>
+</section>
+
+<!-- 02 — the problem -->
+<section data-screen-label="02 The market is broken">
+  <div class="nav"><div class="wm">Haven</div><div class="pn">02 / 12</div></div>
+  <div class="content">
+    <div class="mono" style="margin-bottom: 30px;">The problem</div>
+    <div class="h1" style="font-size: 116px; margin-bottom: 60px; max-width: 1500px;">
+      The apps reward performance.<br>
+      Therapy rewards <span class="it">honesty.</span>
+    </div>
+    <div class="body" style="font-size: 26px; max-width: 1100px; margin-bottom: 80px;">
+      The category has consolidated into three apps that train you to be a better commodity — sharper photos, tighter prompts, faster judgment. People who've spent years in therapy can <em class="it">feel</em> themselves performing on these apps. Many are quitting them entirely.
+    </div>
+    <div style="display: flex; gap: 60px; margin-top: auto;">
+      <div style="flex: 1; padding-top: 24px; border-top: 1px solid var(--cocoa);">
+        <div class="h1" style="font-size: 80px; line-height: 1; margin-bottom: 14px;">42<span style="font-size: 38px;">%</span></div>
+        <div class="body" style="font-size: 24px;">of single adults under 40 have deleted a dating app in the last 6 months — and not replaced it.</div>
+        <div class="mono" style="font-size: 20px; margin-top: 14px;">Pew · 2025</div>
+      </div>
+      <div style="flex: 1; padding-top: 24px; border-top: 1px solid var(--cocoa);">
+        <div class="h1" style="font-size: 80px; line-height: 1; margin-bottom: 14px;">3.7<span style="font-size: 38px;">×</span></div>
+        <div class="body" style="font-size: 24px;">growth in adults in regular therapy since 2019. The cohort is real, premium, and underserved by every existing app.</div>
+        <div class="mono" style="font-size: 20px; margin-top: 14px;">APA + SimplePractice</div>
+      </div>
+      <div style="flex: 1; padding-top: 24px; border-top: 1px solid var(--cocoa);">
+        <div class="h1" style="font-size: 80px; line-height: 1; margin-bottom: 14px;">71<span style="font-size: 38px;">%</span></div>
+        <div class="body" style="font-size: 24px;">say dating apps make their mental health worse. The product is now adversarial to the people most likely to pay for an alternative.</div>
+        <div class="mono" style="font-size: 20px; margin-top: 14px;">Forbes Health · 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 — the cohort -->
+<section data-screen-label="03 The cohort">
+  <div class="bloom dusk"></div>
+  <div class="nav"><div class="wm">Haven</div><div class="pn">03 / 12</div></div>
+  <div class="content" style="justify-content: center;">
+    <div class="mono" style="margin-bottom: 30px;">Who Haven is for</div>
+    <div class="h1" style="font-size: 130px; margin-bottom: 40px; max-width: 1500px;">
+      The people doing<br>the most work have<br>the <span class="it">fewest options.</span>
+    </div>
+    <div class="body" style="font-size: 26px; max-width: 920px;">
+      18 million adults in the US are in regular therapy. Half are dating-age. They are the most premium cohort in this category — they've already chosen to invest in becoming better partners. <em class="it">Nobody is selling to them.</em>
+    </div>
+  </div>
+</section>
+
+<!-- 04 — what we built -->
+<section data-screen-label="04 What we built">
+  <div class="nav"><div class="wm">Haven</div><div class="pn">04 / 12</div></div>
+  <div class="content">
+    <div class="mono" style="margin-bottom: 30px;">What Haven is</div>
+    <div class="h1" style="font-size: 116px; margin-bottom: 50px; max-width: 1400px;">
+      A matchmaker for<br>people <span class="it">already in therapy.</span>
+    </div>
+    <div style="display: flex; gap: 80px; align-items: flex-start; flex: 1;">
+      <div style="flex: 1.2; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div class="halo" style="width: 360px; height: 360px;"></div>
+        <div class="it" style="font-size: 60px; margin-top: 50px; color: var(--cocoa);">Sage</div>
+        <div class="body" style="font-size: 24px; text-align: center; margin-top: 16px;">A concierge persona, written by clinicians.</div>
+      </div>
+      <div style="flex: 1.4;">
+        <div style="padding: 30px 0; border-top: 1px solid var(--divider);">
+          <div class="mono" style="margin-bottom: 12px; color: var(--coralDeep);">01 · Three days with Sage</div>
+          <div class="body" style="font-size: 26px; color: var(--cocoa);">Voice notes, felt responses, slow questions. She learns how you move around another person — not what you look like.</div>
+        </div>
+        <div style="padding: 30px 0; border-top: 1px solid var(--divider);">
+          <div class="mono" style="margin-bottom: 12px; color: var(--coralDeep);">02 · Therapy verification</div>
+          <div class="body" style="font-size: 26px; color: var(--cocoa);">OAuth with BetterHelp, Talkspace, Alma, Headway, Two Chairs — or one sentence to your therapist. Receipts can be faked, people cannot.</div>
+        </div>
+        <div style="padding: 30px 0; border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider);">
+          <div class="mono" style="margin-bottom: 12px; color: var(--coralDeep);">03 · One person at a time</div>
+          <div class="body" style="font-size: 26px; color: var(--cocoa);">No feed, no swipe. Sage introduces one match. She tells you why her, for you. You say yes, or not yet.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 — the moat -->
+<section data-screen-label="05 The moat">
+  <div class="bloom honey"></div>
+  <div class="nav"><div class="wm">Haven</div><div class="pn">05 / 12</div></div>
+  <div class="content">
+    <div class="mono" style="margin-bottom: 30px;">Why this is defensible</div>
+    <div class="h1" style="font-size: 116px; margin-bottom: 60px; max-width: 1500px;">
+      Verification is <span class="it">the moat.</span>
+    </div>
+    <div class="body" style="font-size: 26px; max-width: 1100px; margin-bottom: 60px;">
+      We have signed integrations with the six largest digital therapy platforms in the US, covering 71% of insured therapy seats. Every other dating app is one screenshot away from "verified." We are one OAuth away.
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px; margin-top: 40px;">
+      <div style="padding: 28px 20px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border-radius: 14px; text-align: center;">
+        <div class="it" style="font-size: 22px; margin-bottom: 6px;">BetterHelp</div>
+        <div class="mono" style="font-size: 16px;">Live</div>
+      </div>
+      <div style="padding: 28px 20px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border-radius: 14px; text-align: center;">
+        <div class="it" style="font-size: 22px; margin-bottom: 6px;">Talkspace</div>
+        <div class="mono" style="font-size: 16px;">Live</div>
+      </div>
+      <div style="padding: 28px 20px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border-radius: 14px; text-align: center;">
+        <div class="it" style="font-size: 22px; margin-bottom: 6px;">Alma</div>
+        <div class="mono" style="font-size: 16px;">Live</div>
+      </div>
+      <div style="padding: 28px 20px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border-radius: 14px; text-align: center;">
+        <div class="it" style="font-size: 22px; margin-bottom: 6px;">Headway</div>
+        <div class="mono" style="font-size: 16px;">Live</div>
+      </div>
+      <div style="padding: 28px 20px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border-radius: 14px; text-align: center;">
+        <div class="it" style="font-size: 22px; margin-bottom: 6px;">Two Chairs</div>
+        <div class="mono" style="font-size: 16px;">Live</div>
+      </div>
+      <div style="padding: 28px 20px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border-radius: 14px; text-align: center;">
+        <div class="it" style="font-size: 22px; margin-bottom: 6px;">Octave</div>
+        <div class="mono" style="font-size: 16px;">Q3 · 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 — product: sage -->
+<section data-screen-label="06 Product · onboarding">
+  <div class="nav"><div class="wm">Haven</div><div class="pn">06 / 12</div></div>
+  <div class="content">
+    <div class="mono" style="margin-bottom: 30px;">Product · onboarding</div>
+    <div class="h1" style="font-size: 92px; margin-bottom: 40px; max-width: 1400px;">
+      Three days. Voice. Felt responses. <span class="it">Slow.</span>
+    </div>
+    <div style="display: flex; gap: 60px; flex: 1; align-items: stretch;">
+      <div style="flex: 1; aspect-ratio: 9/19; max-height: 700px; background: linear-gradient(160deg, #FBE0C8, #F6C8A8 40%, #EEA99B); border-radius: 28px; padding: 50px 30px 40px; display: flex; flex-direction: column; box-shadow: 0 30px 70px rgba(180,90,70,0.25); overflow: hidden;">
+        <div class="mono" style="font-size: 16px; margin-bottom: 16px;">Day 1 · 9:14 am</div>
+        <div class="halo" style="width: 80px; height: 80px; margin-bottom: 24px;"></div>
+        <div class="it" style="font-size: 28px; line-height: 1.35; color: var(--cocoa);">Hi. I'm Sage. I'd like to spend three days getting to know you, before I introduce you to anyone.</div>
+      </div>
+      <div style="flex: 1; aspect-ratio: 9/19; max-height: 700px; background: linear-gradient(160deg, #F2D8BC, #F6C8A8); border-radius: 28px; padding: 50px 30px; display: flex; flex-direction: column; box-shadow: 0 30px 70px rgba(180,90,70,0.25); overflow: hidden;">
+        <div class="mono" style="font-size: 16px; margin-bottom: 16px;">Day 2 · sitting with another</div>
+        <div class="it" style="font-size: 26px; line-height: 1.3; margin-bottom: 26px;">When someone you love is in pain, what's your first move?</div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="padding: 14px 16px; background: rgba(255,255,255,0.7); border-radius: 14px; font-size: 14px;">Fix it. I want to be useful.</div>
+          <div style="padding: 14px 16px; background: var(--cocoa); color: var(--cream); border-radius: 14px; font-size: 14px;">Sit with them. The silence is part.</div>
+          <div style="padding: 14px 16px; background: rgba(255,255,255,0.7); border-radius: 14px; font-size: 14px;">Honest answer? Run a little.</div>
+        </div>
+      </div>
+      <div style="flex: 1; aspect-ratio: 9/19; max-height: 700px; background: linear-gradient(160deg, #E8C38A, #F4A088); border-radius: 28px; padding: 50px 30px; display: flex; flex-direction: column; box-shadow: 0 30px 70px rgba(180,90,70,0.25); overflow: hidden;">
+        <div class="mono" style="font-size: 16px; margin-bottom: 16px;">Day 3 · synthesis</div>
+        <div class="it" style="font-size: 22px; line-height: 1.45; margin-bottom: 18px;">Here's who I think you are, in one paragraph. Tell me where I'm wrong.</div>
+        <div style="padding: 18px; background: rgba(255,255,255,0.7); border-radius: 14px; font-family: 'Instrument Serif'; font-style: italic; font-size: 16px; line-height: 1.55; color: var(--cocoa);">
+          You're someone who learned to be useful before you learned to be loved. You're working on letting people get close without solving them. You'd rather be patient than impressive.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 — product: match -->
+<section data-screen-label="07 Product · the introduction">
+  <div class="bloom coral"></div>
+  <div class="nav"><div class="wm">Haven</div><div class="pn">07 / 12</div></div>
+  <div class="content" style="flex-direction: row; gap: 100px; padding: 80px 130px; align-items: center;">
+    <div style="flex: 1.1;">
+      <div class="mono" style="margin-bottom: 24px;">Product · the introduction</div>
+      <div class="h1" style="font-size: 100px; margin-bottom: 40px;">
+        One person.<br>One <span class="it">reason.</span>
+      </div>
+      <div class="body" style="font-size: 24px; max-width: 580px; margin-bottom: 30px;">
+        No feed. No swipe. Sage introduces one match at a time, and tells you — in a single sentence — why her, for you.
+      </div>
+      <div style="padding: 26px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 18px; max-width: 580px; border: 1px solid rgba(255,255,255,0.85);">
+        <div class="mono" style="margin-bottom: 12px;">Why her, for you</div>
+        <div class="it" style="font-size: 28px; line-height: 1.4;">You both said "patient" when I asked what you were working toward.</div>
+      </div>
+    </div>
+    <div style="flex: 0.9; display: flex; justify-content: center;">
+      <div style="width: 460px; aspect-ratio: 3/4; border-radius: 24px; overflow: hidden; background-image: url(app/photos/maya.jpg); background-size: cover; background-position: center; box-shadow: 0 50px 100px rgba(180,90,70,0.3); position: relative;">
+        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(40,20,15,0.7));"></div>
+        <div style="position: absolute; bottom: 36px; left: 36px; right: 36px; color: var(--cream);">
+          <div class="mono" style="color: rgba(251,243,232,0.7); margin-bottom: 10px; font-size: 16px;">Today</div>
+          <div class="it" style="font-size: 56px; line-height: 1;">Maya</div>
+          <div class="body" style="font-size: 18px; color: rgba(251,243,232,0.85); margin-top: 8px;">34 · Brooklyn · 5 yrs in therapy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 — brand -->
+<section data-screen-label="08 Brand" class="dark">
+  <div class="bloom cocoa"></div>
+  <div class="nav"><div class="wm">Haven</div><div class="pn" style="color: rgba(251,243,232,0.5);">08 / 12</div></div>
+  <div class="content" style="justify-content: center;">
+    <div class="mono" style="margin-bottom: 30px;">A brand that signals difference in three seconds</div>
+    <div class="h1" style="font-size: 144px; margin-bottom: 60px; max-width: 1500px;">
+      Warm where the<br>category is <span class="it">cold.</span>
+    </div>
+    <div style="display: flex; gap: 36px; margin-top: 50px;">
+      <div style="flex: 1; height: 180px; background: var(--cream); border-radius: 12px; display: flex; align-items: flex-end; padding: 20px;">
+        <div style="font-family: 'DM Mono'; font-size: 12px; color: var(--cocoa);">Cream · #FBF3E8</div>
+      </div>
+      <div style="flex: 1; height: 180px; background: var(--coral); border-radius: 12px; display: flex; align-items: flex-end; padding: 20px;">
+        <div style="font-family: 'DM Mono'; font-size: 12px; color: var(--cocoa);">Coral · #F4A088</div>
+      </div>
+      <div style="flex: 1; height: 180px; background: var(--peach); border-radius: 12px; display: flex; align-items: flex-end; padding: 20px;">
+        <div style="font-family: 'DM Mono'; font-size: 12px; color: var(--cocoa);">Peach · #F6C8A8</div>
+      </div>
+      <div style="flex: 1; height: 180px; background: var(--lilac); border-radius: 12px; display: flex; align-items: flex-end; padding: 20px;">
+        <div style="font-family: 'DM Mono'; font-size: 12px; color: var(--cocoa);">Lilac · #D4B8D8</div>
+      </div>
+      <div style="flex: 1; height: 180px; background: var(--cocoa); border: 1px solid rgba(251,243,232,0.2); border-radius: 12px; display: flex; align-items: flex-end; padding: 20px;">
+        <div style="font-family: 'DM Mono'; font-size: 12px; color: var(--cream);">Cocoa · #3A2420</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 — business model -->
+<section data-screen-label="09 Business model">
+  <div class="nav"><div class="wm">Haven</div><div class="pn">09 / 12</div></div>
+  <div class="content">
+    <div class="mono" style="margin-bottom: 30px;">Business model</div>
+    <div class="h1" style="font-size: 116px; margin-bottom: 80px;">
+      Two tiers. <span class="it">Neither is free.</span>
+    </div>
+    <div style="display: flex; gap: 32px; flex: 1;">
+      <div style="flex: 1; padding: 50px; background: rgba(244,160,136,0.08); border: 1px solid var(--divider); border-radius: 28px;">
+        <div class="mono" style="margin-bottom: 18px;">Core</div>
+        <div class="h1" style="font-size: 96px; margin-bottom: 16px;">$29<span style="font-size: 32px; color: var(--textMuted); font-weight: 300;"> / mo</span></div>
+        <div class="it" style="font-size: 22px; color: var(--textDim); margin-bottom: 36px;">Sage introduces 1–3 a week. ARPU $348/yr.</div>
+        <div class="body" style="font-size: 18px; line-height: 1.7;">
+          • CAC payback: 2.4 months<br>
+          • Gross margin: 78%<br>
+          • Annual retention: 64%<br>
+          • Currently 91% of paid base
+        </div>
+      </div>
+      <div style="flex: 1; padding: 50px; background: var(--cocoa); color: var(--cream); border-radius: 28px; position: relative;">
+        <div class="mono" style="color: var(--peach); margin-bottom: 18px;">Atelier · concierge</div>
+        <div class="h1" style="font-size: 96px; margin-bottom: 16px; color: var(--cream);">$99<span style="font-size: 32px; color: rgba(251,243,232,0.6); font-weight: 300;"> / mo</span></div>
+        <div class="it" style="font-size: 22px; color: var(--peach); margin-bottom: 36px;">A real human matchmaker, with Sage. ARPU $1,188/yr.</div>
+        <div style="font-family: 'Inter'; font-weight: 300; font-size: 18px; line-height: 1.7; color: rgba(251,243,232,0.85);">
+          • CAC payback: 5.1 months<br>
+          • Gross margin: 61%<br>
+          • Annual retention: 81%<br>
+          • Path to 30% of paid base
+        </div>
+      </div>
+      <div style="flex: 1; padding: 50px; background: rgba(232,195,138,0.12); border: 1px solid var(--divider); border-radius: 28px;">
+        <div class="mono" style="margin-bottom: 18px;">Therapy partner</div>
+        <div class="h1" style="font-size: 96px; margin-bottom: 16px;">B2B<span style="font-size: 32px; color: var(--textMuted); font-weight: 300;"> · 2027</span></div>
+        <div class="it" style="font-size: 22px; color: var(--textDim); margin-bottom: 36px;">White-label verification API for partner platforms.</div>
+        <div class="body" style="font-size: 18px; line-height: 1.7;">
+          • Per-verified-user revenue share<br>
+          • Distribution flywheel<br>
+          • Locks in the moat<br>
+          • $4M ARR target by EOY 2027
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 — traction -->
+<section data-screen-label="10 Traction">
+  <div class="bloom honey"></div>
+  <div class="nav"><div class="wm">Haven</div><div class="pn">10 / 12</div></div>
+  <div class="content">
+    <div class="mono" style="margin-bottom: 30px;">Traction · 6 months in</div>
+    <div class="h1" style="font-size: 116px; margin-bottom: 60px;">
+      The cohort <span class="it">showed up.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 50px; margin-bottom: 80px;">
+      <div>
+        <div class="h1" style="font-size: 110px; line-height: 1; margin-bottom: 14px;">2,412</div>
+        <div class="mono" style="margin-bottom: 8px;">Verified members</div>
+        <div class="body" style="font-size: 16px;">Across NYC, LA, London. 100% therapy-verified, no exceptions.</div>
+      </div>
+      <div>
+        <div class="h1" style="font-size: 110px; line-height: 1; margin-bottom: 14px;">88<span style="font-size: 50px;">%</span></div>
+        <div class="mono" style="margin-bottom: 8px;">Monthly retention</div>
+        <div class="body" style="font-size: 16px;">More than 3× the dating-app benchmark. People stay because the gate works.</div>
+      </div>
+      <div>
+        <div class="h1" style="font-size: 110px; line-height: 1; margin-bottom: 14px;">71</div>
+        <div class="mono" style="margin-bottom: 8px;">NPS</div>
+        <div class="body" style="font-size: 16px;">Members tell their therapist about us. Word-of-mouth is the primary growth channel.</div>
+      </div>
+      <div>
+        <div class="h1" style="font-size: 110px; line-height: 1; margin-bottom: 14px;">$84<span style="font-size: 50px;">k</span></div>
+        <div class="mono" style="margin-bottom: 8px;">Monthly revenue</div>
+        <div class="body" style="font-size: 16px;">Up 5.2× since January. ARR pacing $1.4M, no paid acquisition.</div>
+      </div>
+    </div>
+    <div style="padding: 30px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 18px; border: 1px solid rgba(255,255,255,0.85); max-width: 1200px;">
+      <div class="it" style="font-size: 28px; line-height: 1.45; color: var(--cocoa);">
+        "The app stopped feeling like shopping, and started feeling like listening."
+      </div>
+      <div class="mono" style="font-size: 16px; margin-top: 14px;">Leila R · Atelier member · matched February 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 — the ask -->
+<section data-screen-label="11 The ask">
+  <div class="bloom coral"></div>
+  <div class="nav"><div class="wm">Haven</div><div class="pn">11 / 12</div></div>
+  <div class="content">
+    <div class="mono" style="margin-bottom: 30px;">The ask</div>
+    <div class="h1" style="font-size: 144px; margin-bottom: 60px;">
+      $6.2M seed.<br><span class="it">18 months of runway.</span>
+    </div>
+    <div style="display: flex; gap: 60px; align-items: flex-start; flex: 1;">
+      <div style="flex: 1.2;">
+        <div class="mono" style="margin-bottom: 24px;">Use of funds</div>
+        <div style="display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; padding: 22px 0; border-top: 1px solid var(--cocoa); align-items: baseline;">
+            <div style="font-family: 'Inter'; font-size: 26px; font-weight: 300;">Team · 8 hires</div>
+            <div class="it" style="font-size: 30px;">42%</div>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 22px 0; border-top: 1px solid var(--divider); align-items: baseline;">
+            <div style="font-family: 'Inter'; font-size: 26px; font-weight: 300;">City expansion · +3</div>
+            <div class="it" style="font-size: 30px;">28%</div>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 22px 0; border-top: 1px solid var(--divider); align-items: baseline;">
+            <div style="font-family: 'Inter'; font-size: 26px; font-weight: 300;">Therapist partner side</div>
+            <div class="it" style="font-size: 30px;">18%</div>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 22px 0; border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); align-items: baseline;">
+            <div style="font-family: 'Inter'; font-size: 26px; font-weight: 300;">Brand · campaign · OOH</div>
+            <div class="it" style="font-size: 30px;">12%</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex: 1;">
+        <div class="mono" style="margin-bottom: 24px;">Milestones · Q4 2027</div>
+        <div style="padding: 28px; background: rgba(255,255,255,0.65); backdrop-filter: blur(10px); border-radius: 18px; border: 1px solid rgba(255,255,255,0.85);">
+          <div style="padding: 14px 0; border-bottom: 1px solid var(--divider); display: flex; justify-content: space-between;">
+            <span class="body" style="font-size: 18px; color: var(--cocoa);">Members</span><span class="it" style="font-size: 22px;">25,000</span>
+          </div>
+          <div style="padding: 14px 0; border-bottom: 1px solid var(--divider); display: flex; justify-content: space-between;">
+            <span class="body" style="font-size: 18px; color: var(--cocoa);">ARR</span><span class="it" style="font-size: 22px;">$11.4M</span>
+          </div>
+          <div style="padding: 14px 0; border-bottom: 1px solid var(--divider); display: flex; justify-content: space-between;">
+            <span class="body" style="font-size: 18px; color: var(--cocoa);">Cities</span><span class="it" style="font-size: 22px;">6 — incl. Toronto, SF, Berlin</span>
+          </div>
+          <div style="padding: 14px 0; display: flex; justify-content: space-between;">
+            <span class="body" style="font-size: 18px; color: var(--cocoa);">Partner ARR</span><span class="it" style="font-size: 22px;">$1.2M</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 — close -->
+<section data-screen-label="12 Close" class="dark">
+  <div class="bloom cocoa"></div>
+  <div class="nav"><div class="wm">Haven</div><div class="pn" style="color: rgba(251,243,232,0.5);">12 / 12</div></div>
+  <div class="content" style="justify-content: center;">
+    <div class="mono" style="margin-bottom: 40px;">House philosophy</div>
+    <div class="h1" style="font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-size: 124px; line-height: 1.15; max-width: 1600px; color: var(--cream);">
+      "The goal isn't to help you<br>find someone faster.<br>It's to make sure that when<br>you do, you recognize them."
+    </div>
+    <div style="display: flex; gap: 60px; align-items: center; margin-top: 80px;">
+      <div style="display: flex; gap: 18px; align-items: center;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #F4A088, #D4B8D8);"></div>
+        <div>
+          <div class="it" style="font-size: 26px; color: var(--cream);">Leila Osman</div>
+          <div class="mono" style="font-size: 16px;">Co-founder · ex-therapist</div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 18px; align-items: center;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #E8C38A, #F4A088);"></div>
+        <div>
+          <div class="it" style="font-size: 26px; color: var(--cream);">Jun Park</div>
+          <div class="mono" style="font-size: 16px;">Co-founder · ex-writer</div>
+        </div>
+      </div>
+      <div style="margin-left: auto;">
+        <div class="mono" style="font-size: 16px; margin-bottom: 8px;">Get in touch</div>
+        <div class="it" style="font-size: 28px; color: var(--cream);">leila@haven.love</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</deck-stage>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Haven v2 — Her, re-read</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #F2E4D0; font-family: Inter, sans-serif; color: #3a2420; }
+  * { box-sizing: border-box; }
+  em { font-style: italic; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="brand-v2/surfaces.jsx"></script>
+<script type="text/babel" src="brand-v2/ab-foundation.jsx"></script>
+<script type="text/babel" src="brand-v2/ab-ui.jsx"></script>
+<script type="text/babel" src="brand-v2/ab-marketing.jsx"></script>
+
+<script type="text/babel">
+const V2_TWEAKS = /*EDITMODE-BEGIN*/{
+  "glowTone": "coral"
+}/*EDITMODE-END*/;
+
+function HavenV2() {
+  const [tweaks, setTweaks] = useTweaks(V2_TWEAKS);
+  return (
+    <>
+      <DesignCanvas>
+        <DCSection id="intro" title="Haven v2 · Her, re-read" subtitle="Soft diffuse glow, coral/peach, sans-dominant. Apple warmth + a psychedelic whisper.">
+          <DCArtboard id="cover" label="01 · Cover" width={1600} height={1000}>
+            <V2_Cover />
+          </DCArtboard>
+          <DCArtboard id="sage-moment" label="02 · Sage, typeset" width={1600} height={1000}>
+            <V2_SageMoment />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="foundation" title="Foundation">
+          <DCArtboard id="color" label="03 · Color" width={1400} height={1600}>
+            <V2_Color />
+          </DCArtboard>
+          <DCArtboard id="type" label="04 · Typography" width={1400} height={1200}>
+            <V2_Type />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="mark" title="Mark">
+          <DCArtboard id="logo" label="05 · Wordmark" width={1400} height={1200}>
+            <V2_Logo />
+          </DCArtboard>
+          <DCArtboard id="appicon" label="06 · App icon" width={1400} height={1300}>
+            <V2_AppIcon />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="product" title="Product">
+          <DCArtboard id="ui" label="07 · UI surfaces" width={1800} height={1050}>
+            <V2_UI />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="marketing" title="Marketing">
+          <DCArtboard id="ooh" label="08 · OOH" width={900} height={1200}>
+            <V2_OOH />
+          </DCArtboard>
+          <DCArtboard id="social" label="09 · Social" width={1400} height={900}>
+            <V2_Social />
+          </DCArtboard>
+          <DCArtboard id="email" label="10 · Email" width={1100} height={1200}>
+            <V2_Email />
+          </DCArtboard>
+        </DCSection>
+      </DesignCanvas>
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection title="Glow tone" subtitle="Shifts the atmosphere across hero surfaces.">
+          <TweakRadio
+            value={tweaks.glowTone}
+            onChange={v => setTweaks({ glowTone: v })}
+            options={[
+              { value: 'coral', label: 'Coral (default)' },
+              { value: 'dusk',  label: 'Dusk — lilac' },
+              { value: 'honey', label: 'Honey' },
+            ]}
+          />
+        </TweakSection>
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<HavenV2 />);
+</script>
+</body>
+</html>

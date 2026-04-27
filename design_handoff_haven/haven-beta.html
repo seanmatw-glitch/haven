@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Haven · Beta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap">
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="app/kit.jsx"></script>
+<script type="text/babel" src="app/beta-state.jsx"></script>
+<script type="text/babel" src="app/beta-router.jsx"></script>
+<script type="text/babel" src="app/beta-sage.jsx"></script>
+<script type="text/babel" src="app/beta-screens.jsx"></script>
+<script type="text/babel" src="app/beta-screens-flow.jsx"></script>
+
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(ellipse 80% 60% at 30% 20%, #2a1816 0%, #0e0807 60%);
+    min-height: 100vh; font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    padding: 32px 24px;
+    overflow: hidden;
+  }
+
+  /* device + chrome */
+  .stage { display: flex; gap: 56px; align-items: center; max-width: 100vw; }
+  .device-col { display: flex; flex-direction: column; align-items: center; gap: 22px; flex-shrink: 0; }
+  .device {
+    width: 412px; height: 880px;
+    border-radius: 56px; padding: 7px;
+    background: linear-gradient(165deg, #1a0f0c 0%, #0e0706 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.04),
+      0 60px 120px rgba(0,0,0,0.55),
+      0 20px 40px rgba(0,0,0,0.4);
+    position: relative;
+  }
+  .device-screen {
+    width: 100%; height: 100%;
+    border-radius: 50px;
+    overflow: hidden;
+    background: #FBF3E8;
+    position: relative;
+    isolation: isolate;
+  }
+  .notch {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 124px; height: 36px; border-radius: 100px;
+    background: #000;
+    z-index: 50;
+    pointer-events: none;
+  }
+  .home-indicator {
+    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+    width: 134px; height: 5px; border-radius: 3px;
+    background: rgba(58,36,32,0.4);
+    z-index: 50;
+    pointer-events: none;
+  }
+  .ios-status {
+    position: absolute; top: 0; left: 0; right: 0; height: 54px;
+    padding: 18px 32px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 40;
+    pointer-events: none;
+    font-family: -apple-system, 'SF Pro', 'Inter';
+    font-weight: 600; font-size: 16px;
+    color: #3a2420;
+  }
+  .ios-status .status-icons { display: flex; gap: 6px; align-items: center; }
+
+  .app-content {
+    position: absolute; inset: 0;
+    padding-top: 54px; /* status bar */
+    display: flex; flex-direction: column;
+  }
+
+  /* side panel — beta info */
+  .panel {
+    max-width: 360px;
+    color: rgba(251,243,232,0.92);
+    font-family: 'Inter', sans-serif;
+  }
+  .panel .eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(251,243,232,0.5); margin-bottom: 18px; }
+  .panel h1 { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 64px; line-height: 1; margin: 0 0 14px; font-weight: 400; }
+  .panel h1 .light { font-family: 'Inter', sans-serif; font-style: normal; font-weight: 200; font-size: 56px; letter-spacing: -0.03em; }
+  .panel .sub { font-size: 14px; line-height: 1.55; color: rgba(251,243,232,0.65); margin-bottom: 32px; max-width: 320px; }
+
+  .panel .nav-section { margin-bottom: 18px; }
+  .panel .nav-title { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(251,243,232,0.4); margin-bottom: 10px; }
+  .panel .nav-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 0; cursor: pointer;
+    border-bottom: 1px solid rgba(251,243,232,0.06);
+    transition: color 0.15s;
+  }
+  .panel .nav-row:hover { color: #F4A088; }
+  .panel .nav-row .k { font-size: 13px; font-weight: 400; }
+  .panel .nav-row .v { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(251,243,232,0.35); letter-spacing: 0.04em; }
+
+  .panel .actions { display: flex; gap: 8px; margin-top: 24px; flex-wrap: wrap; }
+  .panel .pill {
+    padding: 9px 14px; border-radius: 100px;
+    background: rgba(251,243,232,0.08);
+    color: rgba(251,243,232,0.85);
+    font-size: 12px; cursor: pointer;
+    border: 1px solid rgba(251,243,232,0.1);
+    transition: all 0.2s;
+  }
+  .panel .pill:hover { background: rgba(244,160,136,0.18); border-color: rgba(244,160,136,0.3); color: #F4A088; }
+  .panel .pill.primary { background: #F4A088; color: #2a1410; border-color: transparent; font-weight: 500; }
+  .panel .pill.primary:hover { background: #F6C8A8; }
+
+  .panel .footer-note {
+    margin-top: 32px; font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(251,243,232,0.3);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 1100px) {
+    .stage { flex-direction: column-reverse; gap: 28px; }
+    .panel { text-align: center; max-width: 380px; }
+    .panel .actions { justify-content: center; }
+    .panel .nav-row { display: none; }
+    .panel .nav-section:first-of-type { display: none; }
+    .panel .nav-section { display: none; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 16px 8px; overflow-y: auto; }
+    .device { transform: scale(0.92); transform-origin: top center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- Device -->
+  <div class="device-col">
+    <div class="device">
+      <div class="device-screen">
+        <div class="notch"></div>
+        <div class="ios-status">
+          <span id="ios-time">9:41</span>
+          <div class="status-icons">
+            <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="2.5" height="4" rx="0.5" fill="#3a2420"/><rect x="4" y="5" width="2.5" height="6" rx="0.5" fill="#3a2420"/><rect x="8" y="3" width="2.5" height="8" rx="0.5" fill="#3a2420"/><rect x="12" y="0" width="2.5" height="11" rx="0.5" fill="#3a2420"/></svg>
+            <svg width="24" height="12" viewBox="0 0 24 12"><rect x="0.5" y="0.5" width="21" height="11" rx="2.5" stroke="#3a2420" stroke-opacity="0.4" fill="none"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#3a2420"/></svg>
+          </div>
+        </div>
+        <div class="app-content">
+          <div id="app-root" style="flex:1; display:flex; flex-direction:column; min-height:0;"></div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+    <div style="font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,243,232,0.35);">
+      iPhone 15 Pro · 412×880
+    </div>
+  </div>
+
+  <!-- Side panel -->
+  <div class="panel">
+    <div class="eyebrow">Haven · Beta · Wave 1</div>
+    <h1>The <em>working</em><br/><span class="light">app.</span></h1>
+    <div class="sub">
+      Real onboarding. Real Sage — backed by Claude, with persistent memory of your growth edge, history, and the words you care about. Try it as a new member, or tour as Maya's match.
+    </div>
+
+    <div class="actions">
+      <div class="pill primary" onclick="window.location.hash='#/welcome'">Start fresh</div>
+      <div class="pill" onclick="window.seedDemo(); window.location.hash='#/home';">Tour as member</div>
+      <div class="pill" onclick="if(confirm('Reset all data?')){window.havenStore.reset(); window.location.hash='#/welcome';}">Reset</div>
+    </div>
+
+    <div class="nav-section" style="margin-top: 36px;">
+      <div class="nav-title">Jump to</div>
+      <div class="nav-row" onclick="window.location.hash='#/home'"><span class="k">Home</span><span class="v">#/home</span></div>
+      <div class="nav-row" onclick="window.location.hash='#/sage'"><span class="k">Live Sage chat</span><span class="v">#/sage</span></div>
+      <div class="nav-row" onclick="window.location.hash='#/match'"><span class="k">Your match</span><span class="v">#/match</span></div>
+      <div class="nav-row" onclick="window.location.hash='#/date-brief'"><span class="k">Date brief</span><span class="v">#/date-brief</span></div>
+      <div class="nav-row" onclick="window.location.hash='#/profile'"><span class="k">Profile · what Sage knows</span><span class="v">#/profile</span></div>
+      <div class="nav-row" onclick="window.location.hash='#/settings'"><span class="k">Settings</span><span class="v">#/settings</span></div>
+      <div class="nav-row" onclick="window.location.hash='#/notifications'"><span class="k">Notifications</span><span class="v">#/notif…</span></div>
+      <div class="nav-row" onclick="window.location.hash='#/release-notes'"><span class="k">Release notes</span><span class="v">v0.4.2</span></div>
+      <div class="nav-row" onclick="window.location.hash='#/eng-handoff'"><span class="k">Engineering handoff</span><span class="v">internal</span></div>
+    </div>
+
+    <div class="footer-note">
+      Sage's responses are <span style="color: #F4A088;">live Claude calls</span><br/>
+      State persists in <span style="color: #F4A088;">localStorage</span><br/>
+      Reset anytime to start over
+    </div>
+  </div>
+
+</div>
+
+<script type="text/babel" data-presets="env,react">
+  // Live ios time
+  const updateTime = () => {
+    const d = new Date();
+    document.getElementById('ios-time').textContent =
+      `${d.getHours() % 12 || 12}:${d.getMinutes().toString().padStart(2,'0')}`;
+  };
+  updateTime();
+  setInterval(updateTime, 30000);
+
+  // Root app — picks the right screen based on route + onboarding state
+  function App() {
+    const route = useRoute();
+    const state = useHaven();
+    const { name, params } = parseRoute(route);
+
+    // Gate: if not onboarded and trying to reach app screens, redirect
+    React.useEffect(() => {
+      const appScreens = ['home','sage','match','profile','settings','notifications','date-brief'];
+      if (!state.onboarded && appScreens.includes(name)) {
+        navigate('#/welcome');
+      }
+    }, [name, state.onboarded]);
+
+    if (name === 'welcome') return <WelcomeScreen />;
+    if (name === 'onboarding') return <OnboardingScreen stepIdx={params[0] || 0} />;
+    if (name === 'home') return <HomeScreen />;
+    if (name === 'sage') return <SageScreen />;
+    if (name === 'match') return <MatchScreen />;
+    if (name === 'date-brief') return <DateBriefScreen />;
+    if (name === 'profile') return <ProfileScreen />;
+    if (name === 'settings') return <SettingsScreen />;
+    if (name === 'notifications') return <NotificationsScreen />;
+    if (name === 'pause') return <PauseScreen />;
+    if (name === 'help') return <HelpScreen />;
+    if (name === 'release-notes') return <ReleaseNotesScreen />;
+    if (name === 'eng-handoff') return <EngHandoffScreen />;
+
+    return <WelcomeScreen />;
+  }
+
+  ReactDOM.createRoot(document.getElementById('app-root')).render(<App />);
+</script>
+
+</body>
+</html>
