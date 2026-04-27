@@ -56,11 +56,7 @@ function ProductSection() {
         <div style={{ position: 'sticky', top: 60, justifySelf: 'end', width: FRAME_W }}>
           {!poppedOut && (
             <>
-              <iframe id="beta-frame" src={iframeSrc} style={{
-                width: FRAME_W, height: FRAME_H, border: 'none',
-                background: 'transparent', display: 'block',
-              }} />
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, gap: 12 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, gap: 12 }}>
                 <div style={{ fontFamily: 'DM Mono', fontSize: 9, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(58,36,32,0.4)' }}>
                   Live. Persistent. Click around.
                 </div>
@@ -70,6 +66,10 @@ function ProductSection() {
                   borderRadius: 100, padding: '6px 12px', cursor: 'pointer',
                 }}>Pop out ↗</button>
               </div>
+              <iframe id="beta-frame" src={iframeSrc} style={{
+                width: FRAME_W, height: FRAME_H, border: 'none',
+                background: 'transparent', display: 'block',
+              }} />
             </>
           )}
           {poppedOut && (
