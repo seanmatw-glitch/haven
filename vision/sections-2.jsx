@@ -2,13 +2,17 @@
 
 function ProductSection() {
   const [view, setView] = React.useState('home');
+  const [poppedOut, setPoppedOut] = React.useState(false);
+  const FRAME_W = 440, FRAME_H = 920;
+  const iframeSrc = `haven-beta.html?embed=1#/${view}`;
+
   return (
     <Section id="product" eyebrow="The product · live" title={<>Sage is <It>real</It>. Try her right here.</>}>
       <div style={{ fontFamily: 'Inter', fontSize: 17, lineHeight: 1.6, color: 'rgba(58,36,32,0.7)', maxWidth: 720, marginBottom: 56, fontWeight: 300 }}>
         This isn't a screenshot. The iframe below is the live Haven Beta — Sage runs on Claude, your messages persist, and every screen below the chrome is shipping code. Investors and partners can break it.
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 480px', gap: 50, alignItems: 'start' }}>
-        <div>
+      <div style={{ display: 'grid', gridTemplateColumns: `minmax(0, 1fr) ${FRAME_W}px`, gap: 50, alignItems: 'start' }}>
+        <div style={{ minWidth: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {[
               ['home', 'Morning home', 'Sage card · match card · date brief — the daily surface'],
@@ -18,7 +22,7 @@ function ProductSection() {
               ['profile', 'What Sage knows', 'Your file, in your own words. Plus what she\'s noticed.'],
               ['eng-handoff', 'Architecture', 'How it\'s built — for the engineers in the room.'],
             ].map(([id, label, sub]) => (
-              <div key={id} onClick={() => { setView(id); document.getElementById('beta-frame').src = `haven-beta.html#/${id}`; }} style={{
+              <div key={id} onClick={() => setView(id)} style={{
                 padding: '18px 22px', borderRadius: 14, cursor: 'pointer',
                 background: view === id ? '#3a2420' : '#fff',
                 color: view === id ? '#FBF3E8' : '#3a2420',
@@ -35,17 +39,108 @@ function ProductSection() {
             <div style={{ fontFamily: 'Inter', fontSize: 13, color: '#3a2420', lineHeight: 1.5 }}>Click "Live Sage chat" and write something hard. She'll meet you there.</div>
           </div>
         </div>
-        <div style={{ position: 'sticky', top: 100, justifySelf: 'end' }}>
-          <iframe id="beta-frame" src={`haven-beta.html#/${view}`} style={{
-            width: 480, height: 920, border: 'none', borderRadius: 28,
-            boxShadow: '0 30px 80px rgba(58,36,32,0.18)',
-          }} />
-          <div style={{ fontFamily: 'DM Mono', fontSize: 9, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(58,36,32,0.4)', marginTop: 14, textAlign: 'center' }}>
-            ↑ Live. Persistent. Click around.
-          </div>
+
+        {/* Inline phone frame (hidden when popped out — popup takes over) */}
+        <div style={{ position: 'sticky', top: 100, justifySelf: 'end', width: FRAME_W }}>
+          {!poppedOut && (
+            <>
+              <iframe id="beta-frame" src={iframeSrc} style={{
+                width: FRAME_W, height: FRAME_H, border: 'none', borderRadius: 28,
+                boxShadow: '0 30px 80px rgba(58,36,32,0.18)', background: '#0e0807',
+                display: 'block',
+              }} />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 14, gap: 12 }}>
+                <div style={{ fontFamily: 'DM Mono', fontSize: 9, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(58,36,32,0.4)' }}>
+                  ↑ Live. Persistent.
+                </div>
+                <button onClick={() => setPoppedOut(true)} style={{
+                  fontFamily: 'DM Mono', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase',
+                  color: '#3a2420', background: 'transparent', border: '1px solid rgba(58,36,32,0.2)',
+                  borderRadius: 100, padding: '6px 12px', cursor: 'pointer',
+                }}>Pop out ↗</button>
+              </div>
+            </>
+          )}
+          {poppedOut && (
+            <div style={{
+              width: FRAME_W, height: FRAME_H,
+              border: '1px dashed rgba(58,36,32,0.18)', borderRadius: 28,
+              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+              gap: 14, color: 'rgba(58,36,32,0.5)',
+              fontFamily: 'DM Mono', fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase',
+            }}>
+              <div>App popped out ↗</div>
+              <button onClick={() => setPoppedOut(false)} style={{
+                fontFamily: 'DM Mono', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase',
+                color: '#3a2420', background: 'transparent', border: '1px solid rgba(58,36,32,0.2)',
+                borderRadius: 100, padding: '6px 12px', cursor: 'pointer',
+              }}>Dock back</button>
+            </div>
+          )}
         </div>
       </div>
+
+      {poppedOut && (
+        <PoppedOutPhone src={iframeSrc} onClose={() => setPoppedOut(false)} />
+      )}
     </Section>
+  );
+}
+
+function PoppedOutPhone({ src, onClose }) {
+  const W = 360, H = 760;
+  const [pos, setPos] = React.useState(() => ({
+    x: Math.max(20, window.innerWidth - W - 32),
+    y: Math.max(20, window.innerHeight - H - 32),
+  }));
+  const dragRef = React.useRef(null);
+
+  const onMouseDown = (e) => {
+    const startX = e.clientX, startY = e.clientY;
+    const origin = { ...pos };
+    const onMove = (ev) => {
+      setPos({
+        x: Math.min(window.innerWidth - W - 8, Math.max(8, origin.x + (ev.clientX - startX))),
+        y: Math.min(window.innerHeight - H - 8, Math.max(8, origin.y + (ev.clientY - startY))),
+      });
+    };
+    const onUp = () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+    };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    e.preventDefault();
+  };
+
+  return (
+    <div ref={dragRef} style={{
+      position: 'fixed', left: pos.x, top: pos.y, width: W, height: H,
+      zIndex: 1000, borderRadius: 32,
+      background: '#0e0807',
+      boxShadow: '0 40px 120px rgba(0,0,0,0.45), 0 12px 32px rgba(0,0,0,0.25)',
+      overflow: 'hidden', display: 'flex', flexDirection: 'column',
+    }}>
+      <div onMouseDown={onMouseDown} style={{
+        height: 32, background: 'rgba(20,12,10,0.92)',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 12px', cursor: 'grab', userSelect: 'none',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
+      }}>
+        <div style={{ display: 'flex', gap: 6 }}>
+          <span onClick={onClose} style={{ width: 12, height: 12, borderRadius: '50%', background: '#F4A088', cursor: 'pointer' }} title="Dock back" />
+          <span style={{ width: 12, height: 12, borderRadius: '50%', background: 'rgba(255,255,255,0.15)' }} />
+          <span style={{ width: 12, height: 12, borderRadius: '50%', background: 'rgba(255,255,255,0.15)' }} />
+        </div>
+        <div style={{ fontFamily: 'DM Mono', fontSize: 9, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(251,243,232,0.5)' }}>
+          Haven · drag
+        </div>
+        <div onClick={onClose} style={{ fontFamily: 'DM Mono', fontSize: 11, color: 'rgba(251,243,232,0.7)', cursor: 'pointer', padding: '2px 6px' }} title="Dock back">↙</div>
+      </div>
+      <iframe src={src} style={{
+        flex: 1, width: '100%', border: 'none', background: '#0e0807',
+      }} />
+    </div>
   );
 }
 
