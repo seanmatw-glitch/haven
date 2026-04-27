@@ -3,16 +3,27 @@
 function ProductSection() {
   const [view, setView] = React.useState('home');
   const [poppedOut, setPoppedOut] = React.useState(false);
-  const FRAME_W = 440, FRAME_H = 920;
+  const FRAME_W = 520, FRAME_H = 1080;
   const iframeSrc = `haven-beta.html?embed=1#/${view}`;
 
   return (
-    <Section id="product" eyebrow="The product · live" title={<>Sage is <It>real</It>. Try her right here.</>}>
-      <div style={{ fontFamily: 'Inter', fontSize: 17, lineHeight: 1.6, color: 'rgba(58,36,32,0.7)', maxWidth: 720, marginBottom: 56, fontWeight: 300 }}>
-        This isn't a screenshot. The iframe below is the live Haven Beta — Sage runs on Claude, your messages persist, and every screen below the chrome is shipping code. Investors and partners can break it.
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: `minmax(0, 1fr) ${FRAME_W}px`, gap: 50, alignItems: 'start' }}>
+    <Section id="product">
+      <div style={{ display: 'grid', gridTemplateColumns: `minmax(0, 1fr) ${FRAME_W}px`, gap: 60, alignItems: 'start' }}>
+        {/* Left column: eyebrow + title + intro + cards */}
         <div style={{ minWidth: 0 }}>
+          <div style={{ fontFamily: 'DM Mono', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(58,36,32,0.5)', marginBottom: 18 }}>
+            The product · live
+          </div>
+          <h2 style={{
+            fontFamily: 'Inter', fontWeight: 200, fontSize: 64, lineHeight: 1.05,
+            letterSpacing: '-0.035em', margin: '0 0 32px', color: '#3a2420',
+          }}>
+            Sage is <It>real</It>. Try her right here.
+          </h2>
+          <div style={{ fontFamily: 'Inter', fontSize: 17, lineHeight: 1.6, color: 'rgba(58,36,32,0.7)', marginBottom: 48, fontWeight: 300 }}>
+            This isn't a screenshot. The frame on the right is the live Haven Beta — Sage runs on Claude, your messages persist, and every screen below the chrome is shipping code. Investors and partners can break it.
+          </div>
+
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {[
               ['home', 'Morning home', 'Sage card · match card · date brief — the daily surface'],
@@ -34,24 +45,24 @@ function ProductSection() {
               </div>
             ))}
           </div>
+
           <div style={{ marginTop: 24, padding: '18px 22px', background: 'rgba(244,160,136,0.12)', borderRadius: 14, border: '1px solid rgba(244,160,136,0.25)' }}>
             <div style={{ fontFamily: 'DM Mono', fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#D87560', marginBottom: 6 }}>Try it →</div>
             <div style={{ fontFamily: 'Inter', fontSize: 13, color: '#3a2420', lineHeight: 1.5 }}>Click "Live Sage chat" and write something hard. She'll meet you there.</div>
           </div>
         </div>
 
-        {/* Inline phone frame (hidden when popped out — popup takes over) */}
-        <div style={{ position: 'sticky', top: 100, justifySelf: 'end', width: FRAME_W }}>
+        {/* Right column: phone */}
+        <div style={{ position: 'sticky', top: 60, justifySelf: 'end', width: FRAME_W }}>
           {!poppedOut && (
             <>
               <iframe id="beta-frame" src={iframeSrc} style={{
-                width: FRAME_W, height: FRAME_H, border: 'none', borderRadius: 28,
-                boxShadow: '0 30px 80px rgba(58,36,32,0.18)', background: '#0e0807',
-                display: 'block',
+                width: FRAME_W, height: FRAME_H, border: 'none',
+                background: 'transparent', display: 'block',
               }} />
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 14, gap: 12 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, gap: 12 }}>
                 <div style={{ fontFamily: 'DM Mono', fontSize: 9, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(58,36,32,0.4)' }}>
-                  ↑ Live. Persistent.
+                  Live. Persistent. Click around.
                 </div>
                 <button onClick={() => setPoppedOut(true)} style={{
                   fontFamily: 'DM Mono', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase',
