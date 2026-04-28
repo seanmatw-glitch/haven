@@ -8,6 +8,7 @@ This repo contains the full Haven design system and prototypes:
 - **[Live beta](./haven-beta.html)** — the interactive app, with Sage running on Claude
 - **[App canvas](./haven-app.html)** — all 30+ screens laid out side-by-side
 - **[Pitch deck](./haven-pitch.html)** — 12-slide investor deck
+- **[Business plan](./haven-business-plan.html)** — full long-form plan (downloadable / printable)
 - **[Brand film](./haven-brand-film.html)** — 30-second animated anthem
 - **[Brand system v2](./haven-brand-v2.html)** — the chosen brand direction (Her-meets-Apple)
 - **[Brand system v1](./haven-brand.html)** — original exploration

@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Haven — Business Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30;0,9..144,300..700,80;1,9..144,300..600,50&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bone: #F2EBDD;
+    --bone-warm: #EDE4D2;
+    --ember: #2A1F1A;
+    --ember-soft: #4A3A33;
+    --amber: #C89968;
+    --amber-deep: #A87A4A;
+    --rose: #C98B7A;
+    --sage: #7A8471;
+    --rule: rgba(42, 31, 26, 0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bone);
+    color: var(--ember);
+    font-family: 'Fraunces', Georgia, serif;
+    font-variation-settings: "opsz" 14, "SOFT" 50;
+    font-weight: 380;
+    font-size: 18px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Subtle paper texture */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(rgba(42, 31, 26, 0.018) 1px, transparent 1px),
+      radial-gradient(rgba(42, 31, 26, 0.012) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 96px 32px 160px;
+  }
+
+  /* --- HEADER --- */
+  .masthead {
+    text-align: center;
+    padding: 64px 0 96px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 96px;
+  }
+
+  .wordmark {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 144, "SOFT" 80, "wght" 400;
+    font-size: clamp(56px, 12vw, 96px);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 32px;
+  }
+
+  .tagline {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 24, "SOFT" 80, "wght" 350;
+    font-style: italic;
+    font-size: clamp(16px, 2.4vw, 19px);
+    color: var(--ember-soft);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .doc-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--amber-deep);
+    margin-top: 56px;
+  }
+
+  /* --- PARTS --- */
+  .part {
+    margin: 128px 0 0;
+    padding-top: 72px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .part:first-of-type {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .part-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--amber-deep);
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .part-title {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 96, "SOFT" 80, "wght" 380;
+    font-size: clamp(36px, 6vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin-bottom: 64px;
+    color: var(--ember);
+  }
+
+  /* --- SECTIONS --- */
+  section {
+    margin-top: 72px;
+  }
+
+  section:first-of-type {
+    margin-top: 0;
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 36, "SOFT" 80, "wght" 420;
+    font-size: clamp(24px, 3.6vw, 30px);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+    color: var(--ember);
+  }
+
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 18, "SOFT" 80, "wght" 500;
+    font-size: 18px;
+    line-height: 1.3;
+    margin-top: 40px;
+    margin-bottom: 16px;
+    color: var(--ember);
+  }
+
+  p {
+    margin-bottom: 24px;
+    color: var(--ember);
+  }
+
+  p strong {
+    font-weight: 580;
+    font-variation-settings: "opsz" 14, "SOFT" 50, "wght" 580;
+  }
+
+  em {
+    font-style: italic;
+    color: var(--ember-soft);
+  }
+
+  /* Drop cap on opening paragraph of each Part */
+  .part-title + section > p:first-child::first-letter,
+  .part > section:first-of-type > p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 144, "SOFT" 80, "wght" 320;
+    font-size: 4.6em;
+    float: left;
+    line-height: 0.85;
+    margin: 6px 12px -4px 0;
+    color: var(--amber-deep);
+  }
+
+  /* --- LISTS --- */
+  ul {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+  }
+
+  ul li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+    color: var(--ember);
+  }
+
+  ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 10px;
+    height: 1px;
+    background: var(--amber-deep);
+  }
+
+  /* --- BLOCKQUOTES / CALLOUTS --- */
+  blockquote {
+    margin: 40px 0;
+    padding: 32px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 36, "SOFT" 80, "wght" 350;
+    font-style: italic;
+    font-size: clamp(20px, 2.8vw, 24px);
+    line-height: 1.4;
+    text-align: center;
+    color: var(--ember);
+  }
+
+  /* --- TABLE --- */
+  .table-wrap {
+    margin: 32px 0 40px;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+  }
+
+  th, td {
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  th {
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber-deep);
+    border-bottom: 1px solid var(--ember);
+    padding-bottom: 12px;
+  }
+
+  td:first-child {
+    font-weight: 500;
+    color: var(--ember);
+  }
+
+  /* --- ORNAMENT --- */
+  .ornament {
+    text-align: center;
+    margin: 56px 0;
+    color: var(--amber-deep);
+    font-size: 14px;
+    letter-spacing: 1em;
+    padding-left: 1em;
+  }
+
+  /* --- FOOTER --- */
+  .colophon {
+    margin-top: 160px;
+    padding-top: 64px;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+  }
+
+  .colophon p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-variation-settings: "opsz" 14, "SOFT" 80, "wght" 350;
+    font-size: 14px;
+    color: var(--ember-soft);
+    margin-bottom: 8px;
+  }
+
+  .colophon .mark {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 96, "SOFT" 80, "wght" 380;
+    font-size: 32px;
+    margin-bottom: 24px;
+    color: var(--ember);
+  }
+
+  /* --- INLINE EMPHASIS --- */
+  .lead {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 24, "SOFT" 80, "wght" 360;
+    font-style: italic;
+    font-size: 21px;
+    line-height: 1.5;
+    color: var(--ember);
+    margin-bottom: 32px;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 640px) {
+    main { padding: 64px 24px 120px; }
+    body { font-size: 17px; }
+    .masthead { padding: 32px 0 64px; margin-bottom: 64px; }
+    .part { margin-top: 96px; padding-top: 56px; }
+    section { margin-top: 56px; }
+    blockquote { padding: 24px 0; margin: 32px 0; }
+  }
+
+  /* Selection */
+  ::selection {
+    background: var(--amber);
+    color: var(--bone);
+  }
+  /* Fixed toolbar (back / download / print) */
+  .doc-toolbar {
+    position: fixed; top: 18px; right: 18px; z-index: 100;
+    display: flex; gap: 8px; align-items: center;
+    background: rgba(242, 235, 221, 0.85);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--rule);
+    border-radius: 100px; padding: 6px;
+  }
+  .doc-toolbar a, .doc-toolbar button {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ember); text-decoration: none;
+    background: transparent; border: none; cursor: pointer;
+    padding: 7px 12px; border-radius: 100px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .doc-toolbar a:hover, .doc-toolbar button:hover {
+    background: var(--ember); color: var(--bone);
+  }
+  .doc-toolbar .sep {
+    width: 1px; height: 14px; background: var(--rule);
+  }
+  @media (max-width: 640px) {
+    .doc-toolbar { top: 10px; right: 10px; padding: 4px; }
+    .doc-toolbar a, .doc-toolbar button { font-size: 9px; padding: 6px 10px; letter-spacing: 0.1em; }
+  }
+  @media print {
+    .doc-toolbar { display: none; }
+    body::before { display: none; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-toolbar">
+  <a href="haven-vision.html">&larr; Vision</a>
+  <span class="sep"></span>
+  <a href="haven-business-plan.html" download="haven-business-plan.html">Download</a>
+  <span class="sep"></span>
+  <button onclick="window.print()">Print / PDF</button>
+</div>
+
+<main>
+
+  <header class="masthead">
+    <div class="wordmark">Haven</div>
+    <p class="tagline">The first relationship platform built on the radical premise that the work you've done on yourself should matter.</p>
+    <div class="doc-label">Business Plan &mdash; Working Document</div>
+  </header>
+
+  <!-- PART ONE -->
+  <article class="part">
+    <span class="part-eyebrow">Part One</span>
+    <h1 class="part-title">The Why</h1>
+
+    <section>
+      <h2>The Core Truth</h2>
+      <p>Every dating app in existence is built on the same lie: that connection is a sorting problem.</p>
+      <p>That if you just had better filters, smarter algorithms, more photos, more prompts, more swipes &mdash; you'd find the right person. The entire industry has spent fifteen years and billions of dollars optimizing the wrong variable. They've made the <em>finding</em> faster while the <em>connecting</em> has gotten worse.</p>
+      <p>The truth is simpler and harder. <strong>Connection is a readiness problem, not a sorting problem.</strong></p>
+      <p>You don't meet the right person by seeing more people. You meet the right person by becoming someone who can recognize them, and by being recognizable in return. That requires interior work &mdash; therapy, reflection, growth, time. It requires having actually figured out what you want, what you've been carrying, and what you're done carrying.</p>
+      <p>The people doing this work &mdash; and there are millions of them now &mdash; have nowhere to go. They've outgrown the apps. The apps reward the version of them they're trying to leave behind.</p>
+      <p><strong>Haven exists for them.</strong></p>
+    </section>
+
+    <section>
+      <h2>The Cultural Moment</h2>
+      <p>Three things are true at once, and no one has built a product that sits at their intersection.</p>
+      <p><strong>One in four American adults under 40 is in active therapy.</strong> Therapy has moved from stigma to status symbol in a single decade. "I have a therapist" is now a green flag spoken aloud on first dates. The cultural permission has been granted.</p>
+      <p><strong>Dating app fatigue is at an all-time high.</strong> Match Group's stock has lost more than two-thirds of its value from peak. Users describe the apps with words like <em>exhausting</em>, <em>demoralizing</em>, <em>bleak</em>. The dominant emotion of modern dating is no longer hope. It's resignation.</p>
+      <p><strong>AI has finally crossed the threshold of feeling human.</strong> Not in a creepy way &mdash; in a useful way. People are forming real relationships with AI assistants. The question is no longer <em>can AI feel personal</em>. It's <em>what should AI be personal about</em>.</p>
+      <p>These three currents converge into one product opportunity: an AI matchmaker, gated to people who've done the work, that brings you a small number of real connections instead of a feed of strangers.</p>
+      <p>That product is Haven.</p>
+    </section>
+
+    <section>
+      <h2>The Ethos</h2>
+      <p>Haven is built on four convictions that shape every product decision, every line of copy, every dollar spent.</p>
+
+      <h3>Growth is the prerequisite, not the differentiator.</h3>
+      <p>Other apps will eventually add wellness features. Haven starts with the assumption that the user has already begun. The bar for entry is the moat.</p>
+
+      <h3>Restraint is the product.</h3>
+      <p>Where every other app maximizes choice, swipes, matches, and notifications, Haven minimizes them. One to three matches per week. One opening line. One Sage. The scarcity is what makes it sacred.</p>
+
+      <h3>Care must be felt, not claimed.</h3>
+      <p>Anyone can write "we care about your wellbeing" in a marketing deck. The proof is in the texture of the experience &mdash; the cadence of messages, the shape of the typography, the silence between things. Haven is designed to feel like someone is paying attention.</p>
+
+      <h3>The relationship with the platform is itself a relationship.</h3>
+      <p>Sage is not a feature. Sage is a presence the user comes to know over weeks and months. That relationship has to be honest, never manipulative, and always pointing the user back toward humans.</p>
+    </section>
+
+    <section>
+      <h2>The Bet</h2>
+      <p>If we are right, Haven is not a better dating app. It is the founding product of a new category &mdash; <strong>relationship infrastructure for people who've grown up.</strong></p>
+      <p>The category that exists today is <em>online dating</em>. The category Haven creates is something closer to <em>thoughtful introductions at scale</em>. The closest historical analog is the matchmaker &mdash; the trusted intermediary who knows both sides and arranges the meeting. That role disappeared when the internet replaced human judgment with infinite feed.</p>
+      <p>Haven brings it back, with AI, for a generation that's ready.</p>
+      <p>And matchmaking is only the beginning. The same Sage that introduces you is designed to stay with you &mdash; through the relationship that follows, through the years of work that come after. Haven's first product is the match. Haven's long product is a presence that grows with the user, for as long as the user wants it.</p>
+    </section>
+  </article>
+
+  <div class="ornament">&middot; &middot; &middot;</div>
+
+  <!-- PART TWO -->
+  <article class="part">
+    <span class="part-eyebrow">Part Two</span>
+    <h1 class="part-title">The What</h1>
+
+    <section>
+      <h2>The Product in One Sentence</h2>
+      <p class="lead">Haven is a therapy-engaged, AI-concierge dating platform where users meet a small number of carefully chosen matches per week through an intelligent intermediary named Sage.</p>
+    </section>
+
+    <section>
+      <h2>How It Works</h2>
+
+      <h3>Entry</h3>
+      <p>A new user verifies they are actively engaged in therapy or structured self-growth. Verification accepts session receipts, HSA/FSA statements, subscription confirmations from established therapy platforms, or invitation from a partnered therapist. No therapist ever attests to a client's readiness. Renewed every six months.</p>
+
+      <h3>Onboarding</h3>
+      <p>Sage introduces itself over SMS. Across two to three days &mdash; not one long form &mdash; Sage holds a series of conversations covering the user's emotional life, relationship history, what they're working on, what they're looking for, what matters to them. The conversation feels like talking to a perceptive friend, not filling out a questionnaire.</p>
+
+      <h3>The Portrait</h3>
+      <p>When intake is complete, Sage writes a four-to-six paragraph narrative profile of the user. Not a score. Not a chart. A piece of writing that describes who this person is right now &mdash; how they connect, how they navigate emotion, what they're growing through, what they're looking to be met by. The Portrait is the user's, private by default. They can edit it through conversation with Sage. It evolves over time. It is the receipt for the work they've done in onboarding, and the soul of the matching engine.</p>
+
+      <h3>Matching</h3>
+      <p>One to three times per week, Sage proposes a match. The user receives an SMS: <em>"I've been thinking about someone I want you to meet. Want to see?"</em> If they say yes, they see photos and a short narrative explaining why Sage chose this person &mdash; written in plain language, anchored in real signal from both Portraits.</p>
+
+      <h3>The Double Opt-in</h3>
+      <p>The other person receives the same proposal on their side. Neither person knows they were considered until both have said yes. <strong>No rejection is ever visible.</strong> Sage absorbs every no privately.</p>
+
+      <h3>The Introduction</h3>
+      <p>When both say yes, Sage drafts an opening message based on what it knows about both people &mdash; something specific, something true, something the user can send as-is or edit freely. The user approves. The conversation begins inside the platform, with the option to move to phone or in-person whenever both want.</p>
+
+      <h3>Ongoing</h3>
+      <p>Sage checks in weekly. Light, conversational, never demanding. <em>"How was the date with Maya? What's on your mind this week?"</em> That feedback sharpens the matching. After a few months, Sage offers to revisit the Portrait. <em>"I think a few things have shifted."</em></p>
+    </section>
+
+    <section>
+      <h2>Why This Works</h2>
+      <p>The product solves four problems at once that no dating app has ever solved together.</p>
+
+      <h3>It removes rejection.</h3>
+      <p>The double opt-in means no one ever sees a face they then can't have. The emotional cost of every match is absorbed by Sage, not the user.</p>
+
+      <h3>It removes choice paralysis.</h3>
+      <p>One to three matches per week &mdash; chosen, not surfaced &mdash; replaces the infinite scroll. Users come to anticipate Sage's messages, not dread the app.</p>
+
+      <h3>It removes the cold open.</h3>
+      <p>The drafted intro line, anchored in real shared ground, eliminates the moment most dating conversations die. The first message is always the hardest message. Sage writes it.</p>
+
+      <h3>It produces a feeling of being known.</h3>
+      <p>This is the deep moat. Users who go through Sage onboarding describe the Portrait as the most accurate thing anyone has ever written about them. That feeling &mdash; <em>something is paying attention to me</em> &mdash; is what they come back for, and what they tell their friends.</p>
+    </section>
+
+    <section>
+      <h2>What Haven Will Not Build</h2>
+      <p>Discipline matters. The following are explicit non-features, and remain non-features even when users ask for them:</p>
+      <ul>
+        <li>No swipe interface, ever</li>
+        <li>No infinite browse or discover feed</li>
+        <li>No public profile gallery</li>
+        <li>No mood tracking, journaling, or habit logging</li>
+        <li>No clinical labels, attachment-style scores, or psychometric ratings</li>
+        <li>No therapist-attested readiness</li>
+        <li>No friendships, group support, or platonic match modes at launch</li>
+        <li>No engagement-maximizing notifications or streaks</li>
+      </ul>
+      <p>Each of these would expand the product surface and dilute the premise. Haven is a focused product. That focus is the brand.</p>
+    </section>
+  </article>
+
+  <div class="ornament">&middot; &middot; &middot;</div>
+
+  <!-- PART THREE -->
+  <article class="part">
+    <span class="part-eyebrow">Part Three</span>
+    <h1 class="part-title">The Who</h1>
+
+    <section>
+      <h2>The User</h2>
+      <p>The Haven user is 28 to 42, lives in a major US metro, earns enough to spend $30 to $100 per month on something that matters, and has been in therapy for at least six months. They have used Hinge, Bumble, and probably one or two others. They have deleted those apps at least twice. They have friends in long-term relationships and friends still on the apps and the gap between those two groups is starting to ache.</p>
+      <p>They are not desperate. They are not casual. They are <strong>deliberate.</strong> They want partnership and they want it to be right and they have stopped believing the existing tools will get them there.</p>
+      <p>This person exists by the millions. They are reachable. They have not had a product made for them.</p>
+    </section>
+
+    <section>
+      <h2>The Therapist</h2>
+      <p>The secondary user is the therapist &mdash; licensed, in private practice or a group practice, looking for two things: visibility to potential clients, and a way to participate in their existing clients' relational lives without breaching ethics.</p>
+      <p>Haven offers them a directory listing, a $49 per month featured-placement subscription, and a share of first-session booking fees when a Haven user books them. Therapists do not verify users, attest to readiness, share clinical information, or receive per-lead payments. Their participation is strictly within professional bounds, and their inclusion gives Haven the credibility halo no competitor can replicate.</p>
+    </section>
+  </article>
+
+  <div class="ornament">&middot; &middot; &middot;</div>
+
+  <!-- PART FOUR -->
+  <article class="part">
+    <span class="part-eyebrow">Part Four</span>
+    <h1 class="part-title">The Business</h1>
+
+    <section>
+      <h2>Revenue Model</h2>
+
+      <h3>Three User Tiers</h3>
+      <ul>
+        <li><strong>Free</strong> &mdash; verified profile, directory access, occasional Sage interaction. Acts as a top-of-funnel and a holding state for users between active dating periods.</li>
+        <li><strong>Core &mdash; $29/month</strong> &mdash; the full Sage experience, one to three matches per week, double opt-in, drafted intros, the Portrait, weekly check-ins. The default tier.</li>
+        <li><strong>Concierge &mdash; $99/month</strong> &mdash; Core, plus priority match cadence, human review on proposed matches by trained Haven staff, invitation to in-person Haven events in launch cities, and direct access to the matching team.</li>
+      </ul>
+
+      <h3>Therapist Revenue</h3>
+      <ul>
+        <li>$49/month subscription for directory placement and tools</li>
+        <li>15&ndash;20% platform fee on first-session bookings made through Haven</li>
+      </ul>
+
+      <h3>Blended Assumptions</h3>
+      <ul>
+        <li>ARPU on paid users: $35&ndash;50 per month</li>
+        <li>Free-to-paid conversion: 25&ndash;35% (high because Sage <em>is</em> the product, not a teaser)</li>
+        <li>CAC in launch cities: $80&ndash;120</li>
+        <li>Paid LTV: $400&ndash;600 over 12&ndash;14 months</li>
+        <li>LTV/CAC at maturity: 4&ndash;5x</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Five-Year Trajectory</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Paid Users</th>
+              <th>Revenue</th>
+              <th>EBITDA</th>
+              <th>Stage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>8K</td><td>$2.5M</td><td>&minus;$6M</td><td>Seed</td></tr>
+            <tr><td>2</td><td>40K</td><td>$16M</td><td>&minus;$4M</td><td>Series A</td></tr>
+            <tr><td>3</td><td>120K</td><td>$55M</td><td>+$8M</td><td>Profitable</td></tr>
+            <tr><td>4</td><td>280K</td><td>$140M</td><td>+$35M</td><td>Scaling</td></tr>
+            <tr><td>5</td><td>500K</td><td>$260M</td><td>+$75M</td><td>Series B</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A $260M revenue platform at Year 5 with 25%+ EBITDA margin and a defensible category position is a top-decile venture outcome. The path to $1B exists &mdash; through international expansion, couples tools, and platform extension into adjacent relationship infrastructure &mdash; but is not promised.</p>
+    </section>
+
+    <section>
+      <h2>Funding Path</h2>
+      <ul>
+        <li><strong>Seed: $2&ndash;4M.</strong> Build Sage, ship in one launch city, prove intake &rarr; match &rarr; date &rarr; satisfaction conversion. 18-month runway.</li>
+        <li><strong>Series A: $12&ndash;18M.</strong> Three-city expansion, 10K paid users, prove the unit economics and the women-first launch playbook.</li>
+        <li><strong>Series B: $40&ndash;60M.</strong> National expansion across top 15 metros, scale the Concierge tier, build out the therapist network nationally.</li>
+      </ul>
+    </section>
+  </article>
+
+  <div class="ornament">&middot; &middot; &middot;</div>
+
+  <!-- PART FIVE -->
+  <article class="part">
+    <span class="part-eyebrow">Part Five</span>
+    <h1 class="part-title">The Go-to-Market</h1>
+
+    <section>
+      <h2>Phase One &mdash; The First City</h2>
+      <p><em>Months 0&ndash;9.</em></p>
+      <p>Launch in one city. New York is the most likely candidate &mdash; highest density of therapy-engaged adults, strongest press surface, fastest word-of-mouth velocity in the target demographic. Los Angeles is the alternative.</p>
+      <blockquote>The launch sequence is non-negotiable: women first.</blockquote>
+      <p>The first 1,000 users will be women, invited and onboarded before any men join the platform. This is the single most important operational decision in the early business. Every dating product that has succeeded was built women-first. Haven's therapy gate is, in part, a women's safety filter dressed in wellness language. That filter only works if it is enforced from the beginning.</p>
+      <p>Acquisition in the first city comes from:</p>
+      <ul>
+        <li>Partnerships with 20&ndash;30 therapy practices for directory seeding</li>
+        <li>Press around the launch narrative &mdash; <em>"The dating app you need a therapist to join"</em></li>
+        <li>Influencer partnerships with therapists, relationship educators, and wellness writers</li>
+        <li>Invite-only mechanic creating organic scarcity</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Phase Two &mdash; Three Cities</h2>
+      <p><em>Months 9&ndash;18.</em></p>
+      <p>Add Los Angeles and Austin (or NY/LA/Chicago depending on Phase One city). Repeat the women-first playbook. Validate that the model works outside its original geography.</p>
+    </section>
+
+    <section>
+      <h2>Phase Three &mdash; National</h2>
+      <p><em>Months 18&ndash;30.</em></p>
+      <p>Top 15 metros. Therapist network at national scale. Concierge tier as a primary growth lever in the wealthiest markets.</p>
+    </section>
+  </article>
+
+  <div class="ornament">&middot; &middot; &middot;</div>
+
+  <!-- PART SIX -->
+  <article class="part">
+    <span class="part-eyebrow">Part Six</span>
+    <h1 class="part-title">The Brand</h1>
+
+    <section>
+      <p class="lead">The brand is built around a feeling: <em>something is watching out for me.</em></p>
+      <p><strong>Aesthetic.</strong> Warm futurism. Editorial typography, golden-hour color palette anchored in cream, ember, and signal amber. References include Aesop, Arc Browser, early Airbnb, and Nancy Meyers production design. Anti-references include every existing dating app, every meditation app, and every clinical mental health product.</p>
+      <p><strong>Voice.</strong> Sage writes like a thoughtful friend, never like a chatbot. Em-dashes. No exclamation marks. No emojis. Slightly slower than the user expects. Always pointing the user toward humans.</p>
+      <p><strong>The Portrait</strong> is the brand's signature artifact &mdash; a piece of writing about the user, by Sage, that the user will screenshot and show their friends. It is the most powerful organic marketing tool the company has, because it is the experience itself.</p>
+      <p>A full brand and design system is documented separately.</p>
+    </section>
+  </article>
+
+  <div class="ornament">&middot; &middot; &middot;</div>
+
+  <!-- PART SEVEN -->
+  <article class="part">
+    <span class="part-eyebrow">Part Seven</span>
+    <h1 class="part-title">The Risks</h1>
+
+    <section>
+      <h3>Women's first experience is everything.</h3>
+      <p>If the first thousand women on the platform do not have an excellent experience, the brand dies in launch. This is the single highest-priority operational risk and demands disproportionate founder attention.</p>
+
+      <h3>Sage has to feel right.</h3>
+      <p>The voice, memory, and sense of being known are the entire product. Voice and prompt architecture must be obsessed over. The Concierge tier's human-in-the-loop layer exists in part as a quality floor for the AI.</p>
+
+      <h3>Cold start at city scale.</h3>
+      <p>The therapy gate makes density harder, not easier. Launch sequencing is a strategic discipline, not a marketing decision.</p>
+
+      <h3>Regulatory adjacency.</h3>
+      <p>Haven is not a healthcare product, but it operates near healthcare. Healthcare and privacy counsel must be retained from day one. No therapist attestation, no clinical claims, no diagnostic features &mdash; ever.</p>
+
+      <h3>AI safety.</h3>
+      <p>One viral harmful Sage output ends the brand. Aggressive red-teaming, conservative defaults, and a clear escalation path to humans are non-negotiable.</p>
+
+      <h3>Category education.</h3>
+      <p>Users need to understand why Haven is different from every product they've used. The Portrait, the double opt-in, and the drafted intro are the three demonstrations that do this work in under sixty seconds. Marketing must lead with the experience, not the philosophy.</p>
+    </section>
+  </article>
+
+  <div class="ornament">&middot; &middot; &middot;</div>
+
+  <!-- PART EIGHT -->
+  <article class="part">
+    <span class="part-eyebrow">Part Eight</span>
+    <h1 class="part-title">The Long View</h1>
+
+    <section>
+      <h2>Sage Grows With You</h2>
+      <p>The deepest insight in Haven's product architecture is that the user's relationship with Sage does not end when they meet someone. It begins.</p>
+      <p>By the time a Haven user sits across from their first match, Sage already knows them &mdash; their patterns, their growth, their voice, the specific shape of what they're looking to be met by. That knowledge is not disposable. It is the foundation of a presence that, with the user's continued consent, evolves alongside them through the relationship itself.</p>
+      <blockquote>Haven is where you meet Sage. Sage is what stays with you.</blockquote>
+      <p>This is the natural arc of the product, and the reason Haven is not ultimately a dating app.</p>
+    </section>
+
+    <section>
+      <h2>The Three-Phase Arc</h2>
+
+      <h3>Phase One &mdash; The Match.</h3>
+      <p><em>Years 0&ndash;2.</em> The dating product as described in this plan. Onboarding, the Portrait, weekly check-ins, double opt-in matches, drafted intros. This is the wedge and the focus. Nothing else gets built until this works.</p>
+
+      <h3>Phase Two &mdash; The Continuation.</h3>
+      <p><em>Year 2 onward.</em> For users who matched through Haven and stayed together, Sage continues. Two new product surfaces, both opt-in, neither default.</p>
+
+      <p><strong>The Continued Portrait.</strong> Sage keeps checking in. The user's narrative profile keeps evolving. Weekly conversations, light and unforced, that document a life as it's being lived. The artifact that emerges over years is the most honest self-document the user has ever owned.</p>
+
+      <p><strong>The Bridge.</strong> A consented mechanic for couples who both want it. Sage helps each partner find the words for hard conversations: <em>"There's something I want to tell Maya but don't know how"</em> or <em>"We need to talk about money and I don't know where to start."</em> Sage drafts. The user decides whether to send. Sage never reads chat between partners. Sage never takes sides. Sage refers couples to real therapists when the situation calls for it.</p>
+
+      <p>The Bridge is not couples therapy. It is <strong>the courage to say the hard thing</strong>, scaled. Couples don't fail from lack of communication tools &mdash; they fail from lack of nerve. Sage's job is to make the difficult sentence possible.</p>
+
+      <h3>Phase Three &mdash; The Ritual.</h3>
+      <p><em>Year 3 onward.</em> Once a year, on the anniversary of a couple's first match through Haven, Sage prompts both partners to revisit their original Portraits, write new ones, and share them with each other. <em>"Here's who I was when we met. Here's who I am now. Here's who I'm becoming."</em></p>
+      <p>It is the most powerful retention mechanic the company has, and the kind of artifact users will tell their friends about.</p>
+    </section>
+
+    <section>
+      <h2>What the Continuation Does Not Become</h2>
+      <p>The same discipline that protects the dating product protects the continuation. Sage is never:</p>
+      <ul>
+        <li>A couples therapist</li>
+        <li>A relationship score, ranking, or tracker</li>
+        <li>A shared journal, mood log, or surveillance tool</li>
+        <li>A reader of one partner's content without that partner's explicit consent for that specific moment</li>
+        <li>A replacement for human professionals when the relationship needs more</li>
+      </ul>
+      <p>When a couple needs therapy, Sage refers them to one. When the AI cannot help, the AI says so. The discipline is the brand.</p>
+    </section>
+
+    <section>
+      <h2>Adjacent Surfaces</h2>
+      <p>The same Sage architecture opens other natural products beyond the relationship arc:</p>
+      <ul>
+        <li><strong>Re-entry support</strong> &mdash; for users coming out of long relationships and learning to date again, with Sage as a continuity layer between past and future</li>
+        <li><strong>The therapist platform</strong> &mdash; the directory and booking infrastructure as a standalone product, regardless of Haven's dating use case</li>
+        <li><strong>International expansion</strong> &mdash; beginning with English-speaking markets where therapy adoption is high (UK, Canada, Australia)</li>
+      </ul>
+      <p>None of these are promises. They are the surface area that opens once the core product earns the right to exist.</p>
+    </section>
+
+    <section>
+      <h2>The Real Asset</h2>
+      <p>If Haven succeeds, the asset that compounds is not the user base. It is the body of Portraits &mdash; millions of evolving, user-owned narratives of who people are and how they're growing &mdash; and the trusted AI presence that has earned the right to be in those stories.</p>
+      <p>That is not a dating app. That is a category that does not exist yet.</p>
+    </section>
+  </article>
+
+  <div class="ornament">&middot; &middot; &middot;</div>
+
+  <!-- PART NINE -->
+  <article class="part">
+    <span class="part-eyebrow">Part Nine</span>
+    <h1 class="part-title">The Call</h1>
+
+    <section>
+      <p>Haven is an opportunity to build a category-defining company at the intersection of three powerful cultural shifts: the normalization of therapy, the collapse of the dating app paradigm, and the arrival of AI that feels human.</p>
+      <p>The product is clear. The audience is real and reachable. The brand is differentiated. The economics work. The risks are known and addressable.</p>
+      <p>What it requires is precision in execution &mdash; and the conviction to keep the product narrow when every instinct in venture-scale building will push toward breadth.</p>
+      <blockquote>Haven is for people who have done the work. The company that builds it must do the same.</blockquote>
+    </section>
+  </article>
+
+  <footer class="colophon">
+    <div class="mark">H</div>
+    <p>This document is a working business plan.</p>
+    <p>A companion pitch deck, brand and design system, and Sage product specification are maintained separately.</p>
+  </footer>
+
+</main>
+
+</body>
+</html>
