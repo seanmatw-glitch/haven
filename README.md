@@ -25,6 +25,16 @@ python3 -m http.server 8000
 
 Open `http://localhost:8000/haven-vision.html`.
 
+## Regenerate the business plan PDF
+
+The "Download PDF" button on the plan serves a pre-rendered file. To regenerate after edits:
+
+```bash
+npm install            # one-time, downloads Puppeteer + a Chromium binary
+npm run build:pdf      # writes haven-business-plan.pdf
+git add haven-business-plan.pdf && git commit -m "Refresh plan PDF"
+```
+
 ## Deploy on GitHub Pages
 
 1. Push to `main`

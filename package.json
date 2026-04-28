@@ -1,0 +1,13 @@
+{
+  "name": "haven",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Haven design system, prototypes, and long-form documents.",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "build:pdf": "node scripts/generate-pdf.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.15.0"
+  }
+}
