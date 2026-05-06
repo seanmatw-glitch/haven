@@ -305,6 +305,27 @@
     margin-bottom: 32px;
   }
 
+  /* --- TAGLINE STACK --- */
+  .consumer-line {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 36, "SOFT" 80, "wght" 360;
+    font-style: italic;
+    font-size: clamp(20px, 3.2vw, 26px);
+    line-height: 1.3;
+    color: var(--amber-deep);
+    margin: 24px 0 32px;
+    letter-spacing: 0.005em;
+  }
+
+  .descriptor-line {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ember-soft);
+    margin-bottom: 28px;
+  }
+
   /* --- RESPONSIVE --- */
   @media (max-width: 640px) {
     main { padding: 64px 24px 120px; }
@@ -368,6 +389,8 @@
 
   <header class="masthead">
     <div class="wordmark">Haven</div>
+    <p class="consumer-line">Meet them where you are.</p>
+    <p class="descriptor-line">A therapy and wellness focused dating app</p>
     <p class="tagline">The first relationship platform built on the radical premise that the work you've done on yourself should matter.</p>
     <div class="doc-label">Business Plan &mdash; Working Document</div>
   </header>
@@ -503,7 +526,7 @@
 
     <section>
       <h2>The User</h2>
-      <p>The Haven user is 28 to 42, lives in a major US metro, earns enough to spend $30 to $100 per month on something that matters, and has been in therapy for at least six months. They have used Hinge, Bumble, and probably one or two others. They have deleted those apps at least twice. They have friends in long-term relationships and friends still on the apps and the gap between those two groups is starting to ache.</p>
+      <p>The Haven user is 28 to 42, lives in a major US metro, earns enough to spend $50 to $150 per month on something that matters, and has been in therapy for at least six months. They have used Hinge, Bumble, and probably one or two others. They have deleted those apps at least twice. They have friends in long-term relationships and friends still on the apps and the gap between those two groups is starting to ache.</p>
       <p>They are not desperate. They are not casual. They are <strong>deliberate.</strong> They want partnership and they want it to be right and they have stopped believing the existing tools will get them there.</p>
       <p>This person exists by the millions. They are reachable. They have not had a product made for them.</p>
     </section>
@@ -525,12 +548,23 @@
     <section>
       <h2>Revenue Model</h2>
 
-      <h3>Three User Tiers</h3>
+      <p class="lead">One product. One price. Sage is the premium tier.</p>
+
+      <h3>The Tier</h3>
       <ul>
-        <li><strong>Free</strong> &mdash; verified profile, directory access, occasional Sage interaction. Acts as a top-of-funnel and a holding state for users between active dating periods.</li>
-        <li><strong>Core &mdash; $29/month</strong> &mdash; the full Sage experience, one to three matches per week, double opt-in, drafted intros, the Portrait, weekly check-ins. The default tier.</li>
-        <li><strong>Concierge &mdash; $99/month</strong> &mdash; Core, plus priority match cadence, human review on proposed matches by trained Haven staff, invitation to in-person Haven events in launch cities, and direct access to the matching team.</li>
+        <li><strong>Core &mdash; $99/month</strong> &mdash; the full Sage experience. Onboarding, the Portrait, one to three matches per week, double opt-in, drafted intros, weekly check-ins. One product, one price, no add-ons.</li>
       </ul>
+
+      <p>That is the entire paid product. No free tier. No premium tier above. No human-review services layer. The discipline of a single tier forces every problem to be solved in the one product everyone uses, keeps retention and quality signals clean, and stops Haven from hiding AI quality issues behind a services upsell.</p>
+
+      <h3>Why $99</h3>
+      <p>Haven's pricing comparable is not Hinge. It is the matchmaker.</p>
+      <ul>
+        <li>Hinge+ is $33/month. HingeX is $50/month. Bumble Premium is $40&ndash;80/month. These are feature-unlock subscriptions on top of a free swipe app. Haven is not that product.</li>
+        <li>The League charges $99 per <em>week</em> ($429/month) for entry-tier access to a curated batch with no AI, no Portrait, no drafted intros.</li>
+        <li>Human matchmaker subscriptions begin at $1,295/month (VIDA Select). Tawkify packages start at $4,900 for three matches.</li>
+      </ul>
+      <p>$99/month positions Haven where nothing currently exists &mdash; meaningfully above the apps, dramatically below the human services, and priced like a serious tool for a buyer who already spends $260&ndash;$400/month on therapy.</p>
 
       <h3>Therapist Revenue</h3>
       <ul>
@@ -538,13 +572,12 @@
         <li>15&ndash;20% platform fee on first-session bookings made through Haven</li>
       </ul>
 
-      <h3>Blended Assumptions</h3>
+      <h3>Assumptions</h3>
       <ul>
-        <li>ARPU on paid users: $35&ndash;50 per month</li>
-        <li>Free-to-paid conversion: 25&ndash;35% (high because Sage <em>is</em> the product, not a teaser)</li>
-        <li>CAC in launch cities: $80&ndash;120</li>
-        <li>Paid LTV: $400&ndash;600 over 12&ndash;14 months</li>
-        <li>LTV/CAC at maturity: 4&ndash;5x</li>
+        <li>ARPU: $99/month, flat across the user base</li>
+        <li>CAC in launch cities: $120&ndash;180</li>
+        <li>Paid LTV: $1,150&ndash;1,400 over 13&ndash;15 months</li>
+        <li>LTV/CAC at maturity: 6&ndash;8x</li>
       </ul>
     </section>
 
@@ -562,15 +595,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>1</td><td>8K</td><td>$2.5M</td><td>&minus;$6M</td><td>Seed</td></tr>
-            <tr><td>2</td><td>40K</td><td>$16M</td><td>&minus;$4M</td><td>Series A</td></tr>
-            <tr><td>3</td><td>120K</td><td>$55M</td><td>+$8M</td><td>Profitable</td></tr>
-            <tr><td>4</td><td>280K</td><td>$140M</td><td>+$35M</td><td>Scaling</td></tr>
-            <tr><td>5</td><td>500K</td><td>$260M</td><td>+$75M</td><td>Series B</td></tr>
+            <tr><td>1</td><td>8K</td><td>$9M</td><td>&minus;$4M</td><td>Seed</td></tr>
+            <tr><td>2</td><td>40K</td><td>$48M</td><td>+$2M</td><td>Series A</td></tr>
+            <tr><td>3</td><td>120K</td><td>$143M</td><td>+$32M</td><td>Profitable</td></tr>
+            <tr><td>4</td><td>280K</td><td>$333M</td><td>+$110M</td><td>Scaling</td></tr>
+            <tr><td>5</td><td>500K</td><td>$594M</td><td>+$200M</td><td>Series B</td></tr>
           </tbody>
         </table>
       </div>
-      <p>A $260M revenue platform at Year 5 with 25%+ EBITDA margin and a defensible category position is a top-decile venture outcome. The path to $1B exists &mdash; through international expansion, couples tools, and platform extension into adjacent relationship infrastructure &mdash; but is not promised.</p>
+      <p>A $594M revenue platform at Year 5 with 33%+ EBITDA margin and a defensible category position is a top-decile venture outcome. Single-tier $99/month pricing keeps revenue legible and unit economics clean as the company scales.</p>
+      <p>The path beyond $1B opens through the relationship continuation product for matched couples and international expansion. Neither is required to deliver this trajectory. They are the upside surface that opens once the Core product earns the right to exist.</p>
     </section>
 
     <section>
@@ -578,7 +612,7 @@
       <ul>
         <li><strong>Seed: $2&ndash;4M.</strong> Build Sage, ship in one launch city, prove intake &rarr; match &rarr; date &rarr; satisfaction conversion. 18-month runway.</li>
         <li><strong>Series A: $12&ndash;18M.</strong> Three-city expansion, 10K paid users, prove the unit economics and the women-first launch playbook.</li>
-        <li><strong>Series B: $40&ndash;60M.</strong> National expansion across top 15 metros, scale the Concierge tier, build out the therapist network nationally.</li>
+        <li><strong>Series B: $40&ndash;60M.</strong> National expansion across top 15 metros, build out the therapist network nationally, deepen the relationship continuation product for matched couples.</li>
       </ul>
     </section>
   </article>
@@ -614,7 +648,7 @@
     <section>
       <h2>Phase Three &mdash; National</h2>
       <p><em>Months 18&ndash;30.</em></p>
-      <p>Top 15 metros. Therapist network at national scale. Concierge tier as a primary growth lever in the wealthiest markets.</p>
+      <p>Top 15 metros. Therapist network at national scale. The relationship continuation product opens for matched couples in mature markets where Sage's match quality has been proven at scale.</p>
     </section>
   </article>
 
@@ -630,7 +664,41 @@
       <p><strong>Aesthetic.</strong> Warm futurism. Editorial typography, golden-hour color palette anchored in cream, ember, and signal amber. References include Aesop, Arc Browser, early Airbnb, and Nancy Meyers production design. Anti-references include every existing dating app, every meditation app, and every clinical mental health product.</p>
       <p><strong>Voice.</strong> Sage writes like a thoughtful friend, never like a chatbot. Em-dashes. No exclamation marks. No emojis. Slightly slower than the user expects. Always pointing the user toward humans.</p>
       <p><strong>The Portrait</strong> is the brand's signature artifact &mdash; a piece of writing about the user, by Sage, that the user will screenshot and show their friends. It is the most powerful organic marketing tool the company has, because it is the experience itself.</p>
-      <p>A full brand and design system is documented separately.</p>
+    </section>
+
+    <section>
+      <h2>The Language Stack</h2>
+      <p>Haven speaks at three altitudes, each with a different job. Most companies confuse these and try to make one line do all three. Haven keeps them separate and uses each in the place it belongs.</p>
+
+      <h3>The Consumer Line.</h3>
+      <p class="lead">Meet them where you are.</p>
+      <p>The emotional invitation. It promises that the user can come as they are, that the work they've done is enough, and that someone is already looking for exactly that. It does double duty &mdash; the user meets a partner where the user is, and Sage meets the user where they are. Used on the homepage hero, billboards, social bios, the first SMS Sage ever sends, and the closing frame of every brand video. Reserved for moments where it lands hardest. Never overused.</p>
+
+      <h3>The Descriptor.</h3>
+      <p class="lead">Haven, a therapy and wellness focused dating app.</p>
+      <p>The functional, searchable line. Used in the App Store, Google Play, SEO meta descriptions, and the "what do you do?" introduction at a party. It does the work of being findable. It is not the brand, but it is how the brand gets discovered.</p>
+
+      <h3>The Investor Line.</h3>
+      <p class="lead">The first relationship platform built on the radical premise that the work you've done on yourself should matter.</p>
+      <p>The strategic positioning. Used on the pitch deck cover, this business plan masthead, press narrative, partner conversations, and LinkedIn company page. It does the work of explaining the category, the differentiator, and the conviction in one sentence.</p>
+
+      <p>Used together, the three reinforce each other. A reader feels the consumer line before they understand it. The descriptor tells them what it is. The investor line tells them why it matters. The order of impact &mdash; emotional, functional, strategic &mdash; is by design.</p>
+    </section>
+
+    <section>
+      <h2>Sage's Voice</h2>
+      <p>Sage is not a brand mascot. Sage is a presence. The voice rules are short, precise, and non-negotiable across every surface where Sage appears.</p>
+      <ul>
+        <li>Sage uses em-dashes. Sage does not use exclamation marks.</li>
+        <li>Sage does not use emojis.</li>
+        <li>Sage's messages are slightly slower and more considered than the user expects. Pause before reply. Space between thoughts.</li>
+        <li>Sage refers to itself in the first person but never overuses "I." Most messages lead with the user, not with Sage.</li>
+        <li>Sage names specific things. Not "your match" but "Maya." Not "great qualities" but "the way you talk about your sister."</li>
+        <li>Sage never claims to feel. Sage observes, notices, considers. Sage does not "love" or "miss" or "hope."</li>
+        <li>When the user thanks Sage, Sage redirects warmly toward the human work the user is doing.</li>
+        <li>Sage refuses clinical questions. Sage redirects all crisis or symptom language to professionals.</li>
+      </ul>
+      <p>A full brand and design system, including Sage's complete voice guide and a written copy library, is documented separately.</p>
     </section>
   </article>
 
@@ -646,7 +714,7 @@
       <p>If the first thousand women on the platform do not have an excellent experience, the brand dies in launch. This is the single highest-priority operational risk and demands disproportionate founder attention.</p>
 
       <h3>Sage has to feel right.</h3>
-      <p>The voice, memory, and sense of being known are the entire product. Voice and prompt architecture must be obsessed over. The Concierge tier's human-in-the-loop layer exists in part as a quality floor for the AI.</p>
+      <p>The voice, memory, and sense of being known are the entire product. Voice and prompt architecture must be obsessed over. Phase 1 ships without a human-in-the-loop quality layer &mdash; every match Sage proposes must be one Haven would defend without a human checking it. That discipline is non-negotiable, and it is what forces the AI to actually be good rather than masking quality issues behind a services upsell.</p>
 
       <h3>Cold start at city scale.</h3>
       <p>The therapy gate makes density harder, not easier. Launch sequencing is a strategic discipline, not a marketing decision.</p>

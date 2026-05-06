@@ -18,7 +18,7 @@ function RoadmapSection() {
       q: 'Q1 \'27',
       title: '10 cities',
       color: '#3a2420',
-      items: ['Boston, Austin, Chicago, Toronto, Berlin, Paris, SF', '25,000 members', 'Concierge tier · human matchmakers', 'Public press launch'],
+      items: ['Boston, Austin, Chicago, Toronto, Berlin, Paris, SF', '25,000 members', 'Therapist directory · 200+ partners', 'Public press launch'],
     },
     {
       q: 'Q4 \'27',

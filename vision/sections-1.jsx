@@ -99,7 +99,7 @@ function Hero() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 28, paddingTop: 64, borderTop: '1px solid rgba(58,36,32,0.1)' }}>
           <Stat value="2,412" label="Beta members" sub="NYC · LA · London" />
           <Stat value="68%" label="6-mo retention" sub="vs. 22% category avg." />
-          <Stat value="$99/mo" label="Atelier tier" sub="Average revenue per user" />
+          <Stat value="$99/mo" label="Core tier" sub="Single-tier pricing" />
           <Stat value="14:1" label="LTV : CAC" sub="Word-of-mouth driven" />
         </div>
       </div>

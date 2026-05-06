@@ -3,7 +3,7 @@
 function ProductSection() {
   const [view, setView] = React.useState('home');
   const [poppedOut, setPoppedOut] = React.useState(false);
-  const FRAME_W = 520, FRAME_H = 1080;
+  const FRAME_W = 380, FRAME_H = 760;
   const iframeSrc = `haven-beta.html?embed=1#/${view}`;
 
   return (
@@ -163,29 +163,23 @@ function BusinessModelSection() {
   ];
   return (
     <Section id="business" eyebrow="Business model" title={<>One member at a time. <It>Slow growth, deep retention.</It></>}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 60 }}>
-        {[
-          ['Atelier', '$99/mo', 'Sage + 1 match every 6–8 weeks. The default tier.', '#D87560'],
-          ['Concierge', '$340/mo', 'Sage + a human matchmaker. NYC, LA, London.', '#3a2420'],
-          ['Pause', '$0', 'Step away. Sage stays. File preserved.', 'rgba(58,36,32,0.4)'],
-        ].map(([n, p, d, c]) => (
-          <Card key={n}>
-            <div style={{ fontFamily: 'DM Mono', fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: c, marginBottom: 12 }}>{n}</div>
-            <div style={{ fontFamily: 'Inter', fontWeight: 200, fontSize: 48, color: '#3a2420', letterSpacing: '-0.03em', marginBottom: 12 }}>{p}</div>
-            <div style={{ fontFamily: 'Inter', fontSize: 14, color: 'rgba(58,36,32,0.7)', lineHeight: 1.55 }}>{d}</div>
-          </Card>
-        ))}
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 520px)', justifyContent: 'center', gap: 20, marginBottom: 60 }}>
+        <Card>
+          <div style={{ fontFamily: 'DM Mono', fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#D87560', marginBottom: 12 }}>Core</div>
+          <div style={{ fontFamily: 'Inter', fontWeight: 200, fontSize: 64, color: '#3a2420', letterSpacing: '-0.03em', marginBottom: 16 }}>$99<span style={{ fontSize: 24, color: 'rgba(58,36,32,0.5)', letterSpacing: 0 }}>/mo</span></div>
+          <div style={{ fontFamily: 'Inter', fontSize: 15, color: 'rgba(58,36,32,0.75)', lineHeight: 1.6 }}>The full Sage experience. Onboarding, the Portrait, one to three matches per week, double opt-in, drafted intros, weekly check-ins. One product, one price &mdash; no add-ons, no upsells.</div>
+        </Card>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
         <Card>
           <div style={{ fontFamily: 'DM Mono', fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(58,36,32,0.55)', marginBottom: 14 }}>ARR projection (000s)</div>
           <LineChart data={projData} height={180} color="#D87560" labels />
           <div style={{ fontFamily: 'Inter', fontSize: 13, color: 'rgba(58,36,32,0.65)', marginTop: 18, lineHeight: 1.55 }}>
-            <span style={{ color: '#D87560', fontWeight: 500 }}>$372K MRR by Q4 '27.</span> Conservative — assumes 40% Atelier, 8% Concierge, the rest pause/free. No paid ads.
+            <span style={{ color: '#D87560', fontWeight: 500 }}>$372K MRR by Q4 '27.</span> Conservative — single $99/mo tier, ~15% of waitlist converts to paid. No paid ads.
           </div>
         </Card>
         <Card>
-          <div style={{ fontFamily: 'DM Mono', fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(58,36,32,0.55)', marginBottom: 14 }}>Unit economics · per Atelier member</div>
+          <div style={{ fontFamily: 'DM Mono', fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(58,36,32,0.55)', marginBottom: 14 }}>Unit economics · per Core member</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {[
               ['Average revenue (24mo)', '$2,376', '#D87560'],
@@ -216,7 +210,7 @@ function MarketSection() {
             {[
               ['TAM', '18M', 'US adults 28–42 in active therapy', '#D87560'],
               ['SAM', '6.2M', 'Single, urban, household income $80K+', '#E89890'],
-              ['SOM (5yr)', '180K', 'Members at $99–340/mo across 10 cities', '#3a2420'],
+              ['SOM (5yr)', '180K', 'Members at $99/mo across 10 cities', '#3a2420'],
             ].map(([k, v, d, c]) => (
               <div key={k} style={{ display: 'flex', alignItems: 'baseline', gap: 24, paddingBottom: 18, borderBottom: '1px solid rgba(58,36,32,0.08)' }}>
                 <div style={{ width: 80, fontFamily: 'DM Mono', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(58,36,32,0.55)' }}>{k}</div>
