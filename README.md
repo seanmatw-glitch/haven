@@ -80,3 +80,11 @@ See [`design_handoff_haven/README.md`](./design_handoff_haven/README.md) for the
 ## Contact
 
 Anaya Lyra · Naveen Iyer · `build@haven.love`
+
+## Therapy Mentions Data
+
+Global Dating Insights - https://www.globaldatinginsights.com/news/hinge-releases-2022-predictions-for-dating/
+https://news.wttw.com/2023/02/14/finding-love-mental-illness-those-anxiety-depression-say-they-must-first-swipe-right
+
+## Subscription Data
+
